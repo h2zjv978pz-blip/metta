@@ -26,6 +26,16 @@ use App\Http\Controllers\Backend\UserController;
 use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 
+Route::get('/storage/{path}', function (string $path) {
+    $fullPath = storage_path('app/public/' . $path);
+
+    abort_unless(file_exists($fullPath) && !is_dir($fullPath), 404);
+
+    return response()->file($fullPath, [
+        'Cache-Control' => 'public, max-age=31536000, immutable',
+    ]);
+})->where('path', '.*')->name('storage.serve');
+
 Route::get('/', [HomeController::class, 'getHomePage'])->name('home');
 Route::get('search', [HomeController::class, 'getSearch'])->name('search');
 Route::get('about-us', [HomeController::class, 'getAboutUsPage'])->name('about-us');
