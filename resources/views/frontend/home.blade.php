@@ -196,7 +196,7 @@
                         <div class="overflow-hidden mx-3 element-item">
                             <div class="bdd-sites">
                                 <div class="bdd-sites-box">
-                                    <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}"></div>
+                                    <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}" loading="lazy"></div>
                                     <div class="bdd-sites-text">
                                         <a href="{{ route('buddhist-sites.show', $buddhist_site->id) }}">
 {{--                                            {{ \App\Helpers\Utils::getContentLang() == 'en' ? $buddhist_site->name : $buddhist_site->getJson('description', 'name') }}--}}
