@@ -26,6 +26,17 @@ use App\Http\Controllers\Backend\UserController;
 use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 
+Route::get('/storage-debug', function () {
+    $fullPath = storage_path('app/public/img/home_slide_9D2DqOX94WQLwG0tglI385eax6NqUX.jpg');
+
+    return response()->json([
+        'full_path' => $fullPath,
+        'exists' => file_exists($fullPath),
+        'storage_path_base' => storage_path(),
+        'base_path' => base_path(),
+    ]);
+});
+
 Route::get('/storage/{path}', function (string $path) {
     $fullPath = storage_path('app/public/' . $path);
 
