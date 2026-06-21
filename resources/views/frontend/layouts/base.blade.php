@@ -97,32 +97,32 @@
 {{--            </div>--}}
 {{--        </a>--}}
         <ul class="menu-ul">
-            <li>
+            <li data-menu-key="home">
                 <a href="{{ route('home') }}" class="active">
                     HOME
                 </a>
             </li>
-            <li>
+            <li data-menu-key="buddhist_sites">
                 <a href="{{ route('buddhist-sites.index') }}">
                     BUDDHIST SITES
                 </a>
             </li>
-            <li>
+            <li data-menu-key="teachings">
                 <a href="{{ route('teachings.index') }}">
                     TEACHINGS
                 </a>
             </li>
-            <li>
+            <li data-menu-key="video">
                 <a href="{{ route('library.videos') }}">
                     VIDEO
                 </a>
             </li>
-            <li>
+            <li data-menu-key="about">
                 <a href="{{ route('about-us') }}">
                     ABOUT US
                 </a>
             </li>
-            <li class="lib-dropdown">
+            <li class="lib-dropdown" data-menu-key="library">
                 <a href="{{ route('library.index') }}">
                     LIBRARY
                 </a>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <li data-menu-key="research">
                 <a href="{{ route('blogs.index') }}">
                     RESEARCH & PUBLICATION
                 </a>
@@ -171,7 +171,7 @@
 {{--                    KIDS CORNER--}}
 {{--                </a>--}}
 {{--            </li>--}}
-            <li class="lib-dropdown">
+            <li class="lib-dropdown" data-menu-key="kids_corner">
                 <a href="{{ route('library.videos', ['category' => 'Kids Gallery']) }}">
                     KID'S CORNER
                 </a>
@@ -186,12 +186,12 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <li data-menu-key="donate">
                 <a href="{{ route('donate') }}">
                     DONATE
                 </a>
             </li>
-            <li>
+            <li data-menu-key="contact">
                 <a href="{{ route('contact-us') }}">
                     CONTACT
                 </a>
@@ -231,32 +231,32 @@
         {{--            </div>--}}
         {{--        </a>--}}
         <ul class="menu-ul">
-            <li>
+            <li data-menu-key="home">
                 <a href="{{ route('home') }}" class="active">
                     HOME
                 </a>
             </li>
-            <li>
+            <li data-menu-key="buddhist_sites">
                 <a href="{{ route('buddhist-sites.index') }}">
                     BUDDHIST SITES
                 </a>
             </li>
-            <li>
+            <li data-menu-key="teachings">
                 <a href="{{ route('teachings.index') }}">
                     TEACHINGS
                 </a>
             </li>
-            <li>
+            <li data-menu-key="video">
                 <a href="{{ route('library.videos') }}">
                     VIDEO
                 </a>
             </li>
-            <li>
+            <li data-menu-key="about">
                 <a href="{{ route('about-us') }}">
                     ABOUT US
                 </a>
             </li>
-            <li class="lib-dropdown">
+            <li class="lib-dropdown" data-menu-key="library">
                 <a href="#">
                     LIBRARY
                 </a>
@@ -294,12 +294,12 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <li data-menu-key="research">
                 <a href="{{ route('blogs.index') }}">
                     RESEARCH & PUBLICATION
                 </a>
             </li>
-            <li class="lib-dropdown">
+            <li class="lib-dropdown" data-menu-key="kids_corner">
                 <a href="#">
                     KID'S CORNER
                 </a>
@@ -313,12 +313,12 @@
                     </div>
                 </div>
             </li>
-            <li>
+            <li data-menu-key="donate">
                 <a href="{{ route('donate') }}">
                     DONATE
                 </a>
             </li>
-            <li>
+            <li data-menu-key="contact">
                 <a href="{{ route('contact-us') }}">
                     CONTACT
                 </a>
@@ -439,6 +439,22 @@
             $(this).closest('.content-lang-toggle-form')[0].submit();
         });
     });
+
+    (function () {
+        var menuOrder = @json($gData['menuOrder'] ?? []);
+        if (!menuOrder || !menuOrder.length) return;
+
+        document.querySelectorAll('nav.menu .menu-ul').forEach(function (ul) {
+            var unkeyed = Array.from(ul.querySelectorAll('li:not([data-menu-key])'));
+
+            menuOrder.forEach(function (key) {
+                var li = ul.querySelector('li[data-menu-key="' + key + '"]');
+                if (li) ul.appendChild(li);
+            });
+
+            unkeyed.forEach(function (li) { ul.appendChild(li); });
+        });
+    })();
 </script>
 
 @section('scripts')@show

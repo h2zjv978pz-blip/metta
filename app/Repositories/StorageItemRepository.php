@@ -343,4 +343,23 @@ class StorageItemRepository
         ]);
         $ms->save();
     }
+
+    public function getMenuOrder()
+    {
+        $mo = StorageItem::ofType('menu_order')->first();
+
+        return $mo?->prop('order') ?: ['home', 'buddhist_sites', 'teachings', 'video', 'about', 'library', 'research', 'kids_corner', 'donate', 'contact'];
+    }
+
+    public function saveMenuOrder($request)
+    {
+        $mo = StorageItem::firstOrNew([
+            'type'  => 'menu_order'
+        ]);
+
+        $mo->setProps([
+            'order' => array_values(array_filter(explode(',', $request->menu_order ?? ''))),
+        ]);
+        $mo->save();
+    }
 }

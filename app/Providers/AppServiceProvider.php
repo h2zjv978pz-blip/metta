@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $gData['contactInfo']   = $repo->getContactInfo();
         $gData['socialLinks']   = $repo->getSocialLinks();
         $gData['menuSettings']  = $repo->getMenuSettings();
+        $gData['menuOrder']     = $repo->getMenuOrder();
 
         View::share('gData', $gData);
     }
