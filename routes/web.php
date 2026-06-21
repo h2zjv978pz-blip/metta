@@ -28,12 +28,24 @@ use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 Route::get('/storage-debug', function () {
     $fullPath = storage_path('app/public/img/home_slide_9D2DqOX94WQLwG0tglI385eax6NqUX.jpg');
+    $imgDir = storage_path('app/public/img');
+
+    $listing = [];
+    if (is_dir($imgDir)) {
+        $items = @scandir($imgDir);
+        $listing = $items === false ? ['scandir_failed'] : array_slice($items, 0, 15);
+    } else {
+        $listing = ['img_dir_not_a_dir_or_missing'];
+    }
 
     return response()->json([
         'full_path' => $fullPath,
         'exists' => file_exists($fullPath),
-        'storage_path_base' => storage_path(),
-        'base_path' => base_path(),
+        'is_readable' => @is_readable($fullPath),
+        'img_dir_exists' => is_dir($imgDir),
+        'img_dir_listing_sample' => $listing,
+        'open_basedir' => ini_get('open_basedir'),
+        'php_user' => function_exists('posix_getpwuid') ? (posix_getpwuid(posix_geteuid())['name'] ?? 'unknown') : 'posix_unavailable',
     ]);
 });
 
