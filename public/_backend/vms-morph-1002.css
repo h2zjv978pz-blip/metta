@@ -1,0 +1,6 @@
+.daterangepicker.form-control { position: initial; margin-top: initial; }
+.s-modal-dialog { max-width: 980px; }
+
+@media only screen and (max-width: 1000px) {
+    .s-modal-dialog { max-width: 100%; }
+}

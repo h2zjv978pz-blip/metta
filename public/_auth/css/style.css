@@ -1,0 +1,17 @@
+.navbar-title {
+    color: #fff;
+}
+
+#map-div {
+    width: 100%;
+    height: calc(100vh - 56px);
+}
+
+.material-icons {
+    margin-top: 5px;
+}
+
+.page-heading {
+    color: whitesmoke;
+    font-size: 18px;
+}
