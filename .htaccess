@@ -2,6 +2,7 @@
     RewriteEngine On
 
     # Serve uploaded media directly from storage/app/public (survives redeploys, no symlink needed)
+    RewriteCond %{REQUEST_URI} !^/storage/app/
     RewriteRule ^storage/(.*)$ storage/app/public/$1 [L]
 
     # Serve real files/directories that live under public/ directly (static assets)
@@ -10,7 +11,9 @@
     RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
     RewriteRule ^(.*)$ public/$1 [L]
 
-    # Everything else goes through the Laravel front controller
+    # Everything else goes through the Laravel front controller (unless it's already a real file/dir)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/index.php [L]
 </IfModule>
