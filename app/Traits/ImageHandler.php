@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -12,17 +11,17 @@ trait ImageHandler
     private function saveImage($request, $fn, $prefix = '', $file = null)
     {
         $file           = $file ?? $request->file($fn);
-        $imageDir       = 'app/public/img/';
+        $imageDir       = public_path('storage/img/');
         $imageName      = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
         $fsPath         = $imageDir . $imageName;
         $image          = Image::make($file->getRealPath());
 
-        $image->save(storage_path($fsPath), 70);
+        File::ensureDirectoryExists($imageDir);
+        $image->save($fsPath, 70);
 
-        if (filesize(storage_path($fsPath)) > filesize($file->getRealPath())) {
-            $fsPathNew = Str::replace('app/', '', $fsPath);
-            unlink(storage_path($fsPath));
-            Storage::disk('local')->put($fsPathNew, file_get_contents($file));
+        if (filesize($fsPath) > filesize($file->getRealPath())) {
+            unlink($fsPath);
+            File::put($fsPath, file_get_contents($file));
         }
 
         return $imageName;
@@ -31,11 +30,11 @@ trait ImageHandler
     private function saveVideo($request, $fn, $prefix = '', $file = null)
     {
         $file           = $file ?? $request->file($fn);
-        $videoDir       = 'public/video/';
+        $videoDir       = public_path('storage/video/');
         $videoName      = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
-        $fsPath         = $videoDir . $videoName;
 
-        Storage::disk('local')->put($fsPath, file_get_contents($file));
+        File::ensureDirectoryExists($videoDir);
+        File::put($videoDir . $videoName, file_get_contents($file));
 
         return $videoName;
     }
@@ -55,61 +54,60 @@ trait ImageHandler
     {
         $file = $file ?? $request->file($fn);
 
-        $audioDir = 'public/audio/';
+        $audioDir = public_path('storage/audio/');
         $audioName = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
 
-        $fsPath = $audioDir . $audioName;
-
-        Storage::disk('local')->put($fsPath, file_get_contents($file));
+        File::ensureDirectoryExists($audioDir);
+        File::put($audioDir . $audioName, file_get_contents($file));
 
         return $audioName;
     }
 
     private function deleteImageIfExists($fn)
     {
-        $imageDir = 'public/img/';
+        $imageDir = public_path('storage/img/');
 
-        if (!empty($fn) && File::exists(storage_path('app/' . $imageDir . $fn))) {
-            File::delete(storage_path('app/' . $imageDir . $fn));
+        if (!empty($fn) && File::exists($imageDir . $fn)) {
+            File::delete($imageDir . $fn);
         }
     }
 
     private function deleteVideoIfExists($fn)
     {
-        $fileDir = 'public/video/';
+        $videoDir = public_path('storage/video/');
 
-        if (!empty($fn) && File::exists(storage_path('app/' . $fileDir . $fn))) {
-            File::delete(storage_path('app/' . $fileDir . $fn));
+        if (!empty($fn) && File::exists($videoDir . $fn)) {
+            File::delete($videoDir . $fn);
         }
     }
 
     private function deleteAudioIfExists($fn)
     {
-        $fileDir = 'public/audio/';
+        $audioDir = public_path('storage/audio/');
 
-        if (!empty($fn) && File::exists(storage_path('app/' . $fileDir . $fn))) {
-            File::delete(storage_path('app/' . $fileDir . $fn));
+        if (!empty($fn) && File::exists($audioDir . $fn)) {
+            File::delete($audioDir . $fn);
         }
     }
 
     private function saveDoc($request, $fn, $prefix = '', $file = null)
     {
         $file           = $file ?? $request->file($fn);
-        $docDir         = 'public/doc/';
+        $docDir         = public_path('storage/doc/');
         $docName        = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
-        $fsPath         = $docDir . $docName;
 
-        Storage::disk('local')->put($fsPath, file_get_contents($file));
+        File::ensureDirectoryExists($docDir);
+        File::put($docDir . $docName, file_get_contents($file));
 
         return $docName;
     }
 
     private function deleteDocIfExists($fn)
     {
-        $docDir = 'app/public/doc/';
+        $docDir = public_path('storage/doc/');
 
-        if (!empty($fn) && File::exists(storage_path($docDir . $fn))) {
-            File::delete(storage_path($docDir . $fn));
+        if (!empty($fn) && File::exists($docDir . $fn)) {
+            File::delete($docDir . $fn);
         }
     }
 }
