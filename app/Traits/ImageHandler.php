@@ -11,7 +11,7 @@ trait ImageHandler
     private function saveImage($request, $fn, $prefix = '', $file = null)
     {
         $file           = $file ?? $request->file($fn);
-        $imageDir       = public_path('storage/img/');
+        $imageDir       = storage_path('app/public/img/');
         $imageName      = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
         $fsPath         = $imageDir . $imageName;
         $image          = Image::make($file->getRealPath());
@@ -30,7 +30,7 @@ trait ImageHandler
     private function saveVideo($request, $fn, $prefix = '', $file = null)
     {
         $file           = $file ?? $request->file($fn);
-        $videoDir       = public_path('storage/video/');
+        $videoDir       = storage_path('app/public/video/');
         $videoName      = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
 
         File::ensureDirectoryExists($videoDir);
@@ -54,7 +54,7 @@ trait ImageHandler
     {
         $file = $file ?? $request->file($fn);
 
-        $audioDir = public_path('storage/audio/');
+        $audioDir = storage_path('app/public/audio/');
         $audioName = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
 
         File::ensureDirectoryExists($audioDir);
@@ -65,7 +65,7 @@ trait ImageHandler
 
     private function deleteImageIfExists($fn)
     {
-        $imageDir = public_path('storage/img/');
+        $imageDir = storage_path('app/public/img/');
 
         if (!empty($fn) && File::exists($imageDir . $fn)) {
             File::delete($imageDir . $fn);
@@ -74,7 +74,7 @@ trait ImageHandler
 
     private function deleteVideoIfExists($fn)
     {
-        $videoDir = public_path('storage/video/');
+        $videoDir = storage_path('app/public/video/');
 
         if (!empty($fn) && File::exists($videoDir . $fn)) {
             File::delete($videoDir . $fn);
@@ -83,7 +83,7 @@ trait ImageHandler
 
     private function deleteAudioIfExists($fn)
     {
-        $audioDir = public_path('storage/audio/');
+        $audioDir = storage_path('app/public/audio/');
 
         if (!empty($fn) && File::exists($audioDir . $fn)) {
             File::delete($audioDir . $fn);
@@ -93,7 +93,7 @@ trait ImageHandler
     private function saveDoc($request, $fn, $prefix = '', $file = null)
     {
         $file           = $file ?? $request->file($fn);
-        $docDir         = public_path('storage/doc/');
+        $docDir         = storage_path('app/public/doc/');
         $docName        = (!empty($prefix) ? $prefix . '_' : '') . Str::random(30) . '.' . $file->getClientOriginalExtension();
 
         File::ensureDirectoryExists($docDir);
@@ -104,7 +104,7 @@ trait ImageHandler
 
     private function deleteDocIfExists($fn)
     {
-        $docDir = public_path('storage/doc/');
+        $docDir = storage_path('app/public/doc/');
 
         if (!empty($fn) && File::exists($docDir . $fn)) {
             File::delete($docDir . $fn);

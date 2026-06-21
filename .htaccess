@@ -1,6 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Serve uploaded media directly from storage/app/public (survives redeploys, no symlink needed)
+    RewriteRule ^storage/(.*)$ storage/app/public/$1 [L]
+
     # Serve real files/directories that live under public/ directly (static assets)
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]

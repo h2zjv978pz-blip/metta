@@ -14,24 +14,20 @@ _ide_helper.php
 _ide_helper_models.php
 .phpstorm.meta.php
 package-lock.json
+/public/storage
 /public/vendor
 
 metta_backup.sql
 
 ### Media (large uploaded files, not part of code deploy) ###
-/public/storage/*
-!/public/storage/audio
-!/public/storage/doc
-!/public/storage/img
-!/public/storage/video
-/public/storage/audio/*
-/public/storage/doc/*
-/public/storage/img/*
-/public/storage/video/*
-!/public/storage/audio/.gitignore
-!/public/storage/doc/.gitignore
-!/public/storage/img/.gitignore
-!/public/storage/video/.gitignore
+/storage/app/public/audio/*
+/storage/app/public/doc/*
+/storage/app/public/img/*
+/storage/app/public/video/*
+!/storage/app/public/audio/.gitignore
+!/storage/app/public/doc/.gitignore
+!/storage/app/public/img/.gitignore
+!/storage/app/public/video/.gitignore
 
 
 ### PhpStorm ###
