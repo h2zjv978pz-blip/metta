@@ -19,16 +19,6 @@ package-lock.json
 
 metta_backup.sql
 
-### Media (large uploaded files, not part of code deploy) ###
-/storage/app/public/audio/*
-/storage/app/public/doc/*
-/storage/app/public/img/*
-/storage/app/public/video/*
-!/storage/app/public/audio/.gitignore
-!/storage/app/public/doc/.gitignore
-!/storage/app/public/img/.gitignore
-!/storage/app/public/video/.gitignore
-
 
 ### PhpStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio

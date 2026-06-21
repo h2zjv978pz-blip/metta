@@ -438,9 +438,11 @@ Example: https://setstori.blogspot.com/2016/01/nightmareside.html
         smartSpeed: 800,
         goToFirstSpeed: 3000,
         loop: true,
-        items: 1,
+        items: 2,
+        margin: 10,
         responsive: {
-            480: {items: 1},
+            0: {items: 2, margin: 8},
+            480: {items: 2, margin: 8},
             744: {items: 2},
             756: {items: 2},
             768: {items: 2},
