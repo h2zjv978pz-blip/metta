@@ -108,6 +108,7 @@ class TaskController extends Controller
             case 'manage-menu-settings':
                 $data['menuSettings'] = $repo->getMenuSettings();
                 $data['menuOrder'] = $repo->getMenuOrder();
+                $data['homeSectionOrder'] = $repo->getHomeSectionOrder();
 
                 return view('backend.manage-menu-settings', compact('data'));
 
@@ -117,6 +118,10 @@ class TaskController extends Controller
 
             case 'save-menu-order':
                 $repo->saveMenuOrder($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-menu-settings']);
+
+            case 'save-home-section-order':
+                $repo->saveHomeSectionOrder($request);
                 return redirect()->route('backend.tasks', ['task' => 'manage-menu-settings']);
         }
     }

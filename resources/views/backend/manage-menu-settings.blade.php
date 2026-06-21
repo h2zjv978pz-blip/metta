@@ -87,10 +87,49 @@
         </div>
     </div>
 
+    @php
+        $sectionLabels = [
+            'hero' => 'Hero Slider',
+            'about' => 'About Metta (Highlights)',
+            'library' => 'Library / Our Archives',
+            'buddhist_sites' => 'Buddhist Sites',
+        ];
+    @endphp
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Landing Page Section Order</div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Drag items to set the order sections appear on the homepage, then submit.</p>
+
+            <form action="{{ route('backend.tasks', ['task' => 'save-home-section-order']) }}" method="POST">
+                @csrf
+                <input type="hidden" name="section_order" id="section-order-input" value="{{ implode(',', $data['homeSectionOrder']) }}">
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-12">
+                        <ul id="section-order-list" class="list-group">
+                            @foreach($data['homeSectionOrder'] as $key)
+                                @if(isset($sectionLabels[$key]))
+                                    <li class="list-group-item" draggable="true" data-key="{{ $key }}" style="cursor: move;">
+                                        <i class="fa fa-bars me-2"></i>{{ $sectionLabels[$key] }}
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+
+                        @include('backend.partials.form.button', ['label' => 'Save Order'])
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        (function () {
-            var list = document.getElementById('menu-order-list');
-            var input = document.getElementById('menu-order-input');
+        function initDragOrderList(listId, inputId) {
+            var list = document.getElementById(listId);
+            var input = document.getElementById(inputId);
             var dragging = null;
 
             if (!list) return;
@@ -120,6 +159,9 @@
                     list.insertBefore(dragging, before ? li : li.nextSibling);
                 });
             });
-        })();
+        }
+
+        initDragOrderList('menu-order-list', 'menu-order-input');
+        initDragOrderList('section-order-list', 'section-order-input');
     </script>
 @endsection

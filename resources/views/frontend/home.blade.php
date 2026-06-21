@@ -1,7 +1,7 @@
 @extends('frontend.layouts.base')
 
 @section('main-content')
-    <section id="home">
+    <section id="home" data-section-key="hero">
         <div class="home-slide container-fluid">
             <div id="SlideImg" class="carousel slide carousel-fade" data-bs-ride="carousel"
                  data-bs-pause="false">
@@ -83,7 +83,7 @@
         </div>
     </section>
 
-    <section class="home-about pd-top">
+    <section class="home-about pd-top" data-section-key="about">
         <div class="container">
             <div class="title">
                 <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
@@ -145,7 +145,7 @@
         </div>
     </section>
 
-    <section  class="pd-top">
+    <section class="pd-top" data-section-key="library">
         <div class="container">
             <div class="title">
                 <img src="{{ asset('_common/img/title-icon.png') }}">
@@ -183,7 +183,7 @@
         </div>
     </section>
 
-    <section class="bdd-sites-highlight pd-top pd-bottom">
+    <section class="bdd-sites-highlight pd-top pd-bottom" data-section-key="buddhist_sites">
         <div class="container">
             <div class="title">
                 <img src="{{ asset('_common/img/title-icon.png') }}">
@@ -305,5 +305,20 @@
         </div>
     </section>
 
+@php $sectionOrder = $gData['homeSectionOrder'] ?? []; @endphp
+@if(count($sectionOrder))
+    <script>
+        (function () {
+            var order = @json($sectionOrder);
+            var main = document.querySelector('section[data-section-key]')?.parentElement;
+            if (!main) return;
+
+            order.forEach(function (key) {
+                var el = main.querySelector('section[data-section-key="' + key + '"]');
+                if (el) main.appendChild(el);
+            });
+        })();
+    </script>
+@endif
 
 @endsection

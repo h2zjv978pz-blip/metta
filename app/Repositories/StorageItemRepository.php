@@ -362,4 +362,23 @@ class StorageItemRepository
         ]);
         $mo->save();
     }
+
+    public function getHomeSectionOrder()
+    {
+        $so = StorageItem::ofType('home_section_order')->first();
+
+        return $so?->prop('order') ?: ['hero', 'about', 'library', 'buddhist_sites'];
+    }
+
+    public function saveHomeSectionOrder($request)
+    {
+        $so = StorageItem::firstOrNew([
+            'type'  => 'home_section_order'
+        ]);
+
+        $so->setProps([
+            'order' => array_values(array_filter(explode(',', $request->section_order ?? ''))),
+        ]);
+        $so->save();
+    }
 }
