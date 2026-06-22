@@ -431,7 +431,7 @@
 <script src="{{ asset('_frontend/js/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('_frontend/vendor/fotorama-4.6.4/fotorama.js') }}"></script>
 <script src="{{ asset('_frontend/vendor/mixitup-3/mixitup.min.js') }}"></script>
-<script src="{{ asset('_frontend/js/morph.js') }}?v=1.003"></script>
+<script src="{{ asset('_frontend/js/morph.js') }}?v=1.004"></script>
 
 <script>
     $(document).ready(function () {
