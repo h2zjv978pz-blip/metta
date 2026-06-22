@@ -128,6 +128,16 @@ class TaskController extends Controller
             case 'save-buddhist-sites-display':
                 $repo->saveBuddhistSitesDisplay($request);
                 return redirect()->route('backend.tasks', ['task' => 'manage-menu-settings']);
+
+            case 'manage-splash-screen':
+                $data['menuSettings'] = $repo->getMenuSettings();
+                $data['splashScreen'] = $repo->getSplashScreen();
+
+                return view('backend.manage-splash-screen', compact('data'));
+
+            case 'save-splash-screen':
+                $repo->saveSplashScreen($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-splash-screen']);
         }
     }
 }

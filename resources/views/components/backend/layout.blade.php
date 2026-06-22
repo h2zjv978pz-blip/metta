@@ -198,6 +198,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link " href="{{ route('backend.tasks', ['task' => 'manage-splash-screen']) }}">
+                        <i class="fa fa-bolt"></i> Splash Screen
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link " href="{{ route('backend.users.index') }}">
                         <i class="fa fa-circle-user"></i> Manage Users
                     </a>

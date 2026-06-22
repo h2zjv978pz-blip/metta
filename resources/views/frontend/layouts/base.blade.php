@@ -53,6 +53,61 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9283966023798016" crossorigin="anonymous"></script>
 </head>
 <body>
+@if($gData['splashScreen']['enabled'] ?? false)
+    @php
+        $splash = $gData['splashScreen'];
+        $splashLogoUrl = $splash['logo'] ? asset('storage/img/' . $splash['logo']) : ($gData['menuSettings']?->prop('logo_desktop') ? asset('storage/img/' . $gData['menuSettings']->prop('logo_desktop')) : asset('_common/img/metta-logo-11.png'));
+    @endphp
+    <div id="site-splash-screen" class="site-splash-screen">
+        <div class="site-splash-content">
+            <img src="{{ $splashLogoUrl }}" style="width: {{ $splash['logo_size'] }}px; max-width: 80vw;">
+            <h1>{{ $splash['title'] }}</h1>
+            <p>{{ $splash['tagline'] }}</p>
+        </div>
+    </div>
+    <style>
+        .site-splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #743233;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity .6s ease;
+        }
+        .site-splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .site-splash-content {
+            text-align: center;
+        }
+        .site-splash-content h1 {
+            color: #fff;
+            margin: 16px 0 4px;
+        }
+        .site-splash-content p {
+            color: #f0e6e0;
+            margin: 0;
+        }
+    </style>
+    <script>
+        (function () {
+            var el = document.getElementById('site-splash-screen');
+            if (sessionStorage.getItem('metta_splash_shown')) {
+                el.remove();
+                return;
+            }
+            sessionStorage.setItem('metta_splash_shown', '1');
+            setTimeout(function () {
+                el.classList.add('fade-out');
+                setTimeout(function () { el.remove(); }, 700);
+            }, 1500);
+        })();
+    </script>
+@endif
 <header id="header">
     <div class="header-topper">
         <div>

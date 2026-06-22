@@ -404,4 +404,43 @@ class StorageItemRepository
         ]);
         $bs->save();
     }
+
+    public function getSplashScreen()
+    {
+        $ss = StorageItem::ofType('splash_screen')->first();
+
+        return [
+            'enabled'   => $ss ? (bool) $ss->prop('enabled') : false,
+            'logo'      => $ss?->prop('logo'),
+            'logo_size' => $ss?->prop('logo_size') ?: 300,
+            'title'     => $ss?->prop('title') ?: 'Metta',
+            'tagline'   => $ss?->prop('tagline') ?: "Following in the Buddha's Footsteps",
+        ];
+    }
+
+    public function saveSplashScreen($request)
+    {
+        $ss = StorageItem::firstOrNew([
+            'type'  => 'splash_screen'
+        ]);
+
+        $logo = $ss->prop('logo');
+
+        if ($request->file('splash_logo')) {
+            $this->deleteImageIfExists($logo);
+            $logo = $this->saveImage($request, 'splash_logo', 'splash_logo');
+        } elseif ($request->boolean('remove_logo')) {
+            $this->deleteImageIfExists($logo);
+            $logo = null;
+        }
+
+        $ss->setProps([
+            'enabled'   => $request->boolean('enabled'),
+            'logo'      => $logo,
+            'logo_size' => !empty($request->logo_size) ? (int) $request->logo_size : 300,
+            'title'     => $request->title ?: 'Metta',
+            'tagline'   => $request->tagline ?: "Following in the Buddha's Footsteps",
+        ]);
+        $ss->save();
+    }
 }
