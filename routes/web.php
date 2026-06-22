@@ -36,62 +36,66 @@ Route::get('/storage/{path}', function (string $path) {
     ]);
 })->where('path', '.*')->name('storage.serve');
 
-Route::get('/', [HomeController::class, 'getHomePage'])->name('home');
-Route::get('search', [HomeController::class, 'getSearch'])->name('search');
-Route::get('about-us', [HomeController::class, 'getAboutUsPage'])->name('about-us');
-Route::resource('buddhist-sites', FeBuddhistSiteController::class);
-Route::resource('teachings', FeTeachingController::class);
-Route::resource('blogs', FeBlogController::class);
+Route::get('/', function () {
+    $locale = request()->cookie('site_locale');
 
-Route::get('library', function () {
-    return view('frontend.library.index');
-})->name('library.index');
+    if (!in_array($locale, \App\Http\Middleware\SetLocale::SUPPORTED_LOCALES)) {
+        $locale = 'en';
+    }
 
-Route::get('library/books', [FeBookController::class, 'index'])->name('library.books');
-
-Route::get('library/articles', function () {
-    return view('frontend.library.articles');
-})->name('library.articles');
-
-Route::get('library/kids-gallery', function () {
-    return view('frontend.library.kids-gallery');
-})->name('library.kids-gallery');
-
-Route::get('library/image-gallery', [\App\Http\Controllers\GalleryImageController::class, 'index'])->name('library.image-gallery');
-
-Route::group(['prefix' => 'library', 'as' => 'library.'], function(){
-    Route::get('videos', [FeVideoController::class, 'index'])->name('videos');
-    Route::get('audios', [FeAudioController::class, 'index'])->name('audios');
-
+    return redirect('/' . $locale);
 });
 
-//Route::get('blogs', function () {
-//    return view('frontend.blogs.index');
-//})->name('blogs');
-//
-//Route::get('blogs/details', function () {
-//    return view('frontend.blogs.show');
-//})->name('blogs.show');
+Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale', 'where' => ['locale' => 'en|bn']], function () {
+    Route::get('/', [HomeController::class, 'getHomePage'])->name('home');
+    Route::get('search', [HomeController::class, 'getSearch'])->name('search');
+    Route::get('about-us', [HomeController::class, 'getAboutUsPage'])->name('about-us');
+    Route::resource('buddhist-sites', FeBuddhistSiteController::class);
+    Route::resource('teachings', FeTeachingController::class);
+    Route::resource('blogs', FeBlogController::class);
 
-Route::get('kids-corner/details', function () {
-    return view('frontend.kids-corner.index');
-})->name('kids-corner');
+    Route::get('library', function () {
+        return view('frontend.library.index');
+    })->name('library.index');
 
-Route::get('kids-corner', function () {
-    return view('frontend.kids-corner.show');
-})->name('kids-corner.show');
+    Route::get('library/books', [FeBookController::class, 'index'])->name('library.books');
 
-Route::get('donate', [DonationController::class, 'index'])->name('donate');
+    Route::get('library/articles', function () {
+        return view('frontend.library.articles');
+    })->name('library.articles');
 
-Route::get('contact-us', function () {
-    return view('frontend.contact-us');
-})->name('contact-us');
+    Route::get('library/kids-gallery', function () {
+        return view('frontend.library.kids-gallery');
+    })->name('library.kids-gallery');
 
-Route::get('play/{uri}', function ($uri) {
-    return view('frontend.play.play-video', compact('uri'));
-})->name('play-video');
+    Route::get('library/image-gallery', [\App\Http\Controllers\GalleryImageController::class, 'index'])->name('library.image-gallery');
 
-Route::any('tasks/{task}/{id?}', FeTaskController::class)->name('tasks');
+    Route::group(['prefix' => 'library', 'as' => 'library.'], function(){
+        Route::get('videos', [FeVideoController::class, 'index'])->name('videos');
+        Route::get('audios', [FeAudioController::class, 'index'])->name('audios');
+
+    });
+
+    Route::get('kids-corner/details', function () {
+        return view('frontend.kids-corner.index');
+    })->name('kids-corner');
+
+    Route::get('kids-corner', function () {
+        return view('frontend.kids-corner.show');
+    })->name('kids-corner.show');
+
+    Route::get('donate', [DonationController::class, 'index'])->name('donate');
+
+    Route::get('contact-us', function () {
+        return view('frontend.contact-us');
+    })->name('contact-us');
+
+    Route::get('play/{uri}', function ($uri) {
+        return view('frontend.play.play-video', compact('uri'));
+    })->name('play-video');
+
+    Route::any('tasks/{task}/{id?}', FeTaskController::class)->name('tasks');
+});
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function(){
     Route::get('login', [AuthController::class, 'getLogin'])->name('login');

@@ -22,7 +22,7 @@ class BuddhistSiteController extends Controller
         return view('frontend.buddhist-sites.index', compact('countries', 'buddhist_sites'));
     }
 
-    public function show($id)
+    public function show($locale, $id)
     {
         $buddhist_site = $this->repo->findBuddhistSite($id);
 

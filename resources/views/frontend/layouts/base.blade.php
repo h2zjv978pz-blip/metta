@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" class="lang-{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @if(app()->getLocale() == 'bn')
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    @endif
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/pe-icon-7-stroke/css/pe-icon-7-stroke.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/bootstrap/css/bootstrap.css') }}">
@@ -12,20 +17,26 @@
     <link rel="stylesheet" href="{{ asset('_frontend/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/fotorama-4.6.4/fotorama.css') }}">
-    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.016">
+    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.018">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('_common/img/favicon/apple-touch-icon.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-16x16.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-32x32.png') }}?v=1.001">
+
+    <link rel="alternate" hreflang="en" href="{{ \App\Helpers\Utils::getAlternateUrl('en') }}">
+    <link rel="alternate" hreflang="bn" href="{{ \App\Helpers\Utils::getAlternateUrl('bn') }}">
+    <link rel="alternate" hreflang="x-default" href="{{ \App\Helpers\Utils::getAlternateUrl('en') }}">
+
     @section('styles')@show
 
-    <meta name="description" content="Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.">
-    <meta property="og:title" content="Mettabd.org - A Buddhist Realm">
-    <meta property="og:description" content="Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.">
+    <meta name="description" content="{{ \App\Helpers\Utils::lingual(['Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.', 'মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।']) }}">
+    <meta property="og:title" content="{{ \App\Helpers\Utils::lingual(['Mettabd.org - A Buddhist Realm', 'Mettabd.org - একটি বৌদ্ধ রাজ্য']) }}">
+    <meta property="og:description" content="{{ \App\Helpers\Utils::lingual(['Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.', 'মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।']) }}">
+    <meta property="og:locale" content="{{ app()->getLocale() == 'bn' ? 'bn_BD' : 'en_US' }}">
 
     <title>Metta @hasSection('page-title')
             - @yield('page-title')
         @else
-            - A Buddhist Realm
+            - {{ \App\Helpers\Utils::lingual(['A Buddhist Realm', 'একটি বৌদ্ধ রাজ্য']) }}
         @endif</title>
 
     <!-- Google tag (gtag.js) -->
@@ -62,7 +73,7 @@
                         <form action="{{ route('search') }}" method="GET">
                             <div class="big-search-wrapper">
                                 <div class="search-body">
-                                    <input type="text" name="search" placeholder="Search" value="{{ Request::query('search') }}">
+                                    <input type="text" name="search" placeholder="{{ \App\Helpers\Utils::lingual(['Search', 'খুঁজুন']) }}" value="{{ Request::query('search') }}">
                                 </div>
                                 <button id="search-submit-btn" class="search-submit-btn" type="submit">
                                 <span>
@@ -73,17 +84,8 @@
                         </form>
                         <div class="language-select lgu-pc">
                             <div><i class="fa-solid fa-globe"></i></div>
-                            <form action="{{ route('tasks', 'change-content-lang') }}" method="POST" class="content-lang-toggle-form">
-                                @csrf
-                                <select name="content_lang" class="select__element content-lang-toggle">
-                                    <option class="" selected="" value="en">
-                                        English
-                                    </option>
-                                    <option class="" value="bn" {{ session('content_lang') == 'bn' ? 'selected' : '' }}>
-                                        বাংলা
-                                    </option>
-                                </select>
-                            </form>
+                            <a href="{{ \App\Helpers\Utils::getAlternateUrl('en') }}" class="lang-switch-link {{ app()->getLocale() == 'en' ? 'active' : '' }}">English</a>
+                            <a href="{{ \App\Helpers\Utils::getAlternateUrl('bn') }}" class="lang-switch-link {{ app()->getLocale() == 'bn' ? 'active' : '' }}">বাংলা</a>
                         </div>
                     </div>
                 </div>
@@ -99,32 +101,32 @@
         <ul class="menu-ul">
             <li data-menu-key="home">
                 <a href="{{ route('home') }}" class="active">
-                    HOME
+                    {{ \App\Helpers\Utils::lingual(['HOME', 'হোম']) }}
                 </a>
             </li>
             <li data-menu-key="buddhist_sites">
                 <a href="{{ route('buddhist-sites.index') }}">
-                    BUDDHIST SITES
+                    {{ \App\Helpers\Utils::lingual(['BUDDHIST SITES', 'বৌদ্ধ স্থান']) }}
                 </a>
             </li>
             <li data-menu-key="teachings">
                 <a href="{{ route('teachings.index') }}">
-                    TEACHINGS
+                    {{ \App\Helpers\Utils::lingual(['TEACHINGS', 'শিক্ষা']) }}
                 </a>
             </li>
             <li data-menu-key="video">
                 <a href="{{ route('library.videos') }}">
-                    VIDEO
+                    {{ \App\Helpers\Utils::lingual(['VIDEO', 'ভিডিও']) }}
                 </a>
             </li>
             <li data-menu-key="about">
                 <a href="{{ route('about-us') }}">
-                    ABOUT US
+                    {{ \App\Helpers\Utils::lingual(['ABOUT US', 'আমাদের সম্পর্কে']) }}
                 </a>
             </li>
             <li class="lib-dropdown" data-menu-key="library">
                 <a href="{{ route('library.index') }}">
-                    LIBRARY
+                    {{ \App\Helpers\Utils::lingual(['LIBRARY', 'লাইব্রেরি']) }}
                 </a>
 
                 <div class="dropdown-content">
@@ -163,7 +165,7 @@
             </li>
             <li data-menu-key="research">
                 <a href="{{ route('blogs.index') }}">
-                    RESEARCH & PUBLICATION
+                    {{ \App\Helpers\Utils::lingual(['RESEARCH & PUBLICATION', 'গবেষণা ও প্রকাশনা']) }}
                 </a>
             </li>
 {{--            <li>--}}
@@ -173,7 +175,7 @@
 {{--            </li>--}}
             <li class="lib-dropdown" data-menu-key="kids_corner">
                 <a href="{{ route('library.videos', ['category' => 'Kids Gallery']) }}">
-                    KID'S CORNER
+                    {{ \App\Helpers\Utils::lingual(["KID'S CORNER", 'শিশু কর্নার']) }}
                 </a>
 
                 <div class="dropdown-content">
@@ -188,12 +190,12 @@
             </li>
             <li data-menu-key="donate">
                 <a href="{{ route('donate') }}">
-                    DONATE
+                    {{ \App\Helpers\Utils::lingual(['DONATE', 'দান করুন']) }}
                 </a>
             </li>
             <li data-menu-key="contact">
                 <a href="{{ route('contact-us') }}">
-                    CONTACT
+                    {{ \App\Helpers\Utils::lingual(['CONTACT', 'যোগাযোগ']) }}
                 </a>
             </li>
             <li class="menu-close">
@@ -209,17 +211,8 @@
         </div>
         <div class="language-select lgu-mb">
             <div><i class="fa-solid fa-globe"></i></div>
-            <form action="{{ route('tasks', 'change-content-lang') }}" method="POST" class="content-lang-toggle-form">
-                @csrf
-                <select name="content_lang" class="select__element content-lang-toggle">
-                    <option class="" selected="" value="en">
-                        English
-                    </option>
-                    <option class="" value="bn" {{ session('content_lang') == 'bn' ? 'selected' : '' }}>
-                        বাংলা
-                    </option>
-                </select>
-            </form>
+            <a href="{{ \App\Helpers\Utils::getAlternateUrl('en') }}" class="lang-switch-link {{ app()->getLocale() == 'en' ? 'active' : '' }}">English</a>
+            <a href="{{ \App\Helpers\Utils::getAlternateUrl('bn') }}" class="lang-switch-link {{ app()->getLocale() == 'bn' ? 'active' : '' }}">বাংলা</a>
         </div>
         <!-- Hidden-Menu-Bar -->
     </nav>
@@ -233,32 +226,32 @@
         <ul class="menu-ul">
             <li data-menu-key="home">
                 <a href="{{ route('home') }}" class="active">
-                    HOME
+                    {{ \App\Helpers\Utils::lingual(['HOME', 'হোম']) }}
                 </a>
             </li>
             <li data-menu-key="buddhist_sites">
                 <a href="{{ route('buddhist-sites.index') }}">
-                    BUDDHIST SITES
+                    {{ \App\Helpers\Utils::lingual(['BUDDHIST SITES', 'বৌদ্ধ স্থান']) }}
                 </a>
             </li>
             <li data-menu-key="teachings">
                 <a href="{{ route('teachings.index') }}">
-                    TEACHINGS
+                    {{ \App\Helpers\Utils::lingual(['TEACHINGS', 'শিক্ষা']) }}
                 </a>
             </li>
             <li data-menu-key="video">
                 <a href="{{ route('library.videos') }}">
-                    VIDEO
+                    {{ \App\Helpers\Utils::lingual(['VIDEO', 'ভিডিও']) }}
                 </a>
             </li>
             <li data-menu-key="about">
                 <a href="{{ route('about-us') }}">
-                    ABOUT US
+                    {{ \App\Helpers\Utils::lingual(['ABOUT US', 'আমাদের সম্পর্কে']) }}
                 </a>
             </li>
             <li class="lib-dropdown" data-menu-key="library">
                 <a href="#">
-                    LIBRARY
+                    {{ \App\Helpers\Utils::lingual(['LIBRARY', 'লাইব্রেরি']) }}
                 </a>
                 <div class="dropdown-content">
                     <div class="pb-3">
@@ -296,12 +289,12 @@
             </li>
             <li data-menu-key="research">
                 <a href="{{ route('blogs.index') }}">
-                    RESEARCH & PUBLICATION
+                    {{ \App\Helpers\Utils::lingual(['RESEARCH & PUBLICATION', 'গবেষণা ও প্রকাশনা']) }}
                 </a>
             </li>
             <li class="lib-dropdown" data-menu-key="kids_corner">
                 <a href="#">
-                    KID'S CORNER
+                    {{ \App\Helpers\Utils::lingual(["KID'S CORNER", 'শিশু কর্নার']) }}
                 </a>
                 <div class="dropdown-content">
                     <div class="pb-3">
@@ -315,12 +308,12 @@
             </li>
             <li data-menu-key="donate">
                 <a href="{{ route('donate') }}">
-                    DONATE
+                    {{ \App\Helpers\Utils::lingual(['DONATE', 'দান করুন']) }}
                 </a>
             </li>
             <li data-menu-key="contact">
                 <a href="{{ route('contact-us') }}">
-                    CONTACT
+                    {{ \App\Helpers\Utils::lingual(['CONTACT', 'যোগাযোগ']) }}
                 </a>
             </li>
             <li class="menu-close d-none">
@@ -336,17 +329,8 @@
         </div>
         <div class="language-select lgu-mb">
             <div><i class="fa-solid fa-globe"></i></div>
-            <form action="{{ route('tasks', 'change-content-lang') }}" method="POST" class="content-lang-toggle-form">
-                @csrf
-                <select name="content_lang" class="select__element content-lang-toggle">
-                    <option class="" selected="" value="en">
-                        English
-                    </option>
-                    <option class="" value="bn" {{ session('content_lang') == 'bn' ? 'selected' : '' }}>
-                        বাংলা
-                    </option>
-                </select>
-            </form>
+            <a href="{{ \App\Helpers\Utils::getAlternateUrl('en') }}" class="lang-switch-link {{ app()->getLocale() == 'en' ? 'active' : '' }}">English</a>
+            <a href="{{ \App\Helpers\Utils::getAlternateUrl('bn') }}" class="lang-switch-link {{ app()->getLocale() == 'bn' ? 'active' : '' }}">বাংলা</a>
         </div>
         <!-- Hidden-Menu-Bar -->
     </nav>
@@ -360,7 +344,7 @@
     <div class="container pd-top">
         <div class="row">
             <div class="col-xl-2 col-md-12 pb-4 order">
-                <h4>Contact Us</h4>
+                <h4>{{ \App\Helpers\Utils::lingual(['Contact Us', 'যোগাযোগ করুন']) }}</h4>
                 <ul class="footer-icon footer-gap">
                     <li><i class="fa-solid fa-location-dot"></i> {{ $gData['contactInfo']?->prop('address', null) ?? 'House# 100 A, Road-# 6A, Banani Old DOHS, Banani, Dhaka' }}</li>
                     <li><i class="fa-solid fa-envelope"></i> {{ $gData['contactInfo']?->prop('email', null) ?? 'info@mettabd.org' }}</li>
@@ -381,28 +365,29 @@
                         <img src="{{ asset('_common/img/wheel.png') }}">
                     </div>
                     <h3>Metta</h3>
-                    <h5>Following the footsteps of Buddha</h5>
+                    <h5>{{ \App\Helpers\Utils::lingual(['Following the footsteps of Buddha', 'বুদ্ধের পদাঙ্ক অনুসরণ করে']) }}</h5>
                     <p>
-                        Welcome to Metta digital platform , a sanctuary of wisdom and serenity dedicated to exploring
-                        the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and
-                        capturing the essence of enlightenment through captivating documentaries.
+                        {{ \App\Helpers\Utils::lingual([
+                            'Welcome to Metta digital platform , a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.',
+                            'মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।',
+                        ]) }}
                     </p>
                 </div>
             </div>
             <div class="col-xl-2 col-md-12 pb-4 text-lg-end">
-                <h4>Useful Links</h4>
+                <h4>{{ \App\Helpers\Utils::lingual(['Useful Links', 'প্রয়োজনীয় লিংক']) }}</h4>
                 <ul class="footer-links footer-gap">
-                    <li><a href="{{ route('library.index') }}">LIBRARY</a></li>
-                    <li><a href="{{ route('about-us') }}">ABOUT US</a></li>
-                    <li><a href="{{ route('blogs.index') }}">BLOGS</a></li>
-                    <li><a href="{{ route('donate') }}">DONATE</a></li>
-                    <li><a href="{{ route('contact-us') }}">CONTACT</a></li>
+                    <li><a href="{{ route('library.index') }}">{{ \App\Helpers\Utils::lingual(['LIBRARY', 'লাইব্রেরি']) }}</a></li>
+                    <li><a href="{{ route('about-us') }}">{{ \App\Helpers\Utils::lingual(['ABOUT US', 'আমাদের সম্পর্কে']) }}</a></li>
+                    <li><a href="{{ route('blogs.index') }}">{{ \App\Helpers\Utils::lingual(['BLOGS', 'ব্লগ']) }}</a></li>
+                    <li><a href="{{ route('donate') }}">{{ \App\Helpers\Utils::lingual(['DONATE', 'দান করুন']) }}</a></li>
+                    <li><a href="{{ route('contact-us') }}">{{ \App\Helpers\Utils::lingual(['CONTACT', 'যোগাযোগ']) }}</a></li>
                 </ul>
             </div>
         </div>
         <div class="row footer-line">
-            <div class="col-12 col-sm-6 p-4 ">© Copyright Mettabd.org. All Rights Reserved</div>
-            <div class="col-12 col-sm-6 p-4 text-lg-end text-xs-start">Designed by <a href="https://beethemes.xyz" target="_blank">Bee-Themes</a>
+            <div class="col-12 col-sm-6 p-4 ">{{ \App\Helpers\Utils::lingual(['© Copyright Mettabd.org. All Rights Reserved', '© কপিরাইট Mettabd.org। সর্বস্বত্ব সংরক্ষিত']) }}</div>
+            <div class="col-12 col-sm-6 p-4 text-lg-end text-xs-start">{{ \App\Helpers\Utils::lingual(['Designed by', 'ডিজাইন করেছে']) }} <a href="https://beethemes.xyz" target="_blank">Bee-Themes</a>
             </div>
         </div>
     </div>
@@ -434,12 +419,6 @@
 <script src="{{ asset('_frontend/js/morph.js') }}?v=1.005"></script>
 
 <script>
-    $(document).ready(function () {
-        $('.content-lang-toggle').on('change', function () {
-            $(this).closest('.content-lang-toggle-form')[0].submit();
-        });
-    });
-
     (function () {
         var menuOrder = @json($gData['menuOrder'] ?? []);
         if (!menuOrder || !menuOrder.length) return;

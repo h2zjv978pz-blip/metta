@@ -22,7 +22,7 @@ class TeachingController extends Controller
         return view('frontend.teachings.index', compact('teachings', 'teachings_slides'));
     }
 
-    public function show($id)
+    public function show($locale, $id)
     {
         $teaching = $this->repo->findTeaching($id);
 

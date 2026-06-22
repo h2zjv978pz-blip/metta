@@ -78,11 +78,11 @@ class Utils
 
     public static function getContentLang()
     {
-        if (!Route::is('backend*') && (request()->has('lang') || session()->has('content_lang'))) {
-            return request('lang', null) ?? session()->get('content_lang');
+        if (Route::is('backend*')) {
+            return 'en';
         }
 
-        return 'en';
+        return in_array(app()->getLocale(), ['en', 'bn']) ? app()->getLocale() : 'en';
     }
 
     public static function lingual($values)
@@ -95,5 +95,20 @@ class Utils
     public static function isYouTubeVideo($video)
     {
         return !Str::endsWith($video, '.mp4');
+    }
+
+    public static function getAlternateUrl($locale)
+    {
+        $current = Route::current();
+
+        if (!$current || !$current->getName() || !in_array($locale, ['en', 'bn'])) {
+            return url('/' . $locale);
+        }
+
+        try {
+            return route($current->getName(), array_merge($current->parameters(), ['locale' => $locale]));
+        } catch (\Throwable $e) {
+            return url('/' . $locale);
+        }
     }
 }

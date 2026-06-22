@@ -22,6 +22,18 @@ body {
     width: 100%;
 }
 
+/* Bangla typography */
+html.lang-bn body,
+html.lang-bn h1, html.lang-bn h2, html.lang-bn h3,
+html.lang-bn h4, html.lang-bn h5, html.lang-bn h6,
+html.lang-bn .btn, html.lang-bn input, html.lang-bn textarea, html.lang-bn select {
+    font-family: 'Noto Sans Bengali', 'Poppins', sans-serif;
+}
+
+html.lang-bn body {
+    line-height: 1.7rem;
+}
+
 :root {
     --color-01: #b89155;
     --color-02: #676767;
@@ -212,6 +224,22 @@ section {
     padding: .813rem;
     color: var(--color-03);
     background-color:#a3512b;
+}
+.lang-switch-link {
+    display: flex;
+    align-items: center;
+    padding: 0 .6rem;
+    font-size: 13px;
+    color: var(--color-02);
+    text-decoration: none;
+    border-right: 1px solid #ddd;
+}
+.lang-switch-link:last-child {
+    border-right: none;
+}
+.lang-switch-link.active {
+    color: var(--color-01);
+    font-weight: 600;
 }
 .select__element {
     background: #ffe6cb5e;

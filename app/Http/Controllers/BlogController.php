@@ -19,7 +19,7 @@ class BlogController extends Controller
         return view('frontend.blogs.index', compact('blogs'));
     }
 
-    public function show($id)
+    public function show($locale, $id)
     {
         $blog = $this->repo->findBlog($id);
         $more_blogs = $this->repo->getOtherBlogs($blog->id);
