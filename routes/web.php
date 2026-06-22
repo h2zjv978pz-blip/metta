@@ -110,6 +110,15 @@ Route::group(['prefix' => 'manage', 'as' => 'backend.', 'middleware' => 'auth.ad
         return redirect()->route('backend.tasks', ['task' => 'manage-home']);
     })->name('home');
 
+    Route::get('maintenance/backfill-slugs', function () {
+        $sites = \App\Models\BuddhistSite::all();
+        foreach ($sites as $s) {
+            $s->save();
+        }
+
+        return response()->json(['updated' => $sites->count()]);
+    });
+
     Route::resource('buddhist-sites', BuddhistSiteController::class);
     Route::resource('teachings', TeachingController::class);
     Route::resource('blogs', BlogController::class);
