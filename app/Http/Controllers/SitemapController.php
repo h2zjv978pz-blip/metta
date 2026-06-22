@@ -30,21 +30,23 @@ class SitemapController extends Controller
             $buddhistSiteRepo = new BuddhistSiteRepository();
             foreach ($buddhistSiteRepo->getBuddhistSites() as $site) {
                 foreach ($locales as $locale) {
-                    $urls[] = ['url' => route('buddhist-sites.show', ['locale' => $locale, 'buddhist_site' => $site->id]), 'priority' => '0.8'];
+                    $urls[] = ['url' => route('buddhist-sites.show', ['locale' => $locale, 'buddhist_site' => $site->slug ?? $site->id]), 'priority' => '0.8'];
                 }
             }
 
             $teachingRepo = new TeachingRepository();
             foreach ($teachingRepo->getTeachings() as $teaching) {
+                $teachingSlug = \Illuminate\Support\Str::slug($teaching->props['title'] ?? '') ?: $teaching->id;
                 foreach ($locales as $locale) {
-                    $urls[] = ['url' => route('teachings.show', ['locale' => $locale, 'teaching' => $teaching->id]), 'priority' => '0.6'];
+                    $urls[] = ['url' => route('teachings.show', ['locale' => $locale, 'teaching' => $teachingSlug]), 'priority' => '0.6'];
                 }
             }
 
             $blogRepo = new BlogRepository();
             foreach ($blogRepo->getBlogs() as $blog) {
+                $blogSlug = \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id;
                 foreach ($locales as $locale) {
-                    $urls[] = ['url' => route('blogs.show', ['locale' => $locale, 'blog' => $blog->id]), 'priority' => '0.6'];
+                    $urls[] = ['url' => route('blogs.show', ['locale' => $locale, 'blog' => $blogSlug]), 'priority' => '0.6'];
                 }
             }
 

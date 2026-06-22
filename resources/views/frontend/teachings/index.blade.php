@@ -22,7 +22,7 @@
             <div class="row pd-top">
                 @foreach($teachings as $teaching)
                     <div class="col-lg-4 mb-4">
-                        <a href="{{ route('teachings.show', $teaching->id) }}" class="teach-blog">
+                        <a href="{{ route('teachings.show', \Illuminate\Support\Str::slug($teaching->props['title'] ?? '') ?: $teaching->id) }}" class="teach-blog">
                             <div class="teach-blog-box">
                                 <div class="zoom"><img src="{{ $teaching->getFeatureImageUrl() }}" loading="lazy" alt="{{ $teaching->prop('title') }}"></div>
                                 <div class="teach-blog-info">

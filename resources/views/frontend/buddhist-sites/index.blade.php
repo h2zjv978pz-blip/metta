@@ -41,14 +41,14 @@
                             <div class="bdd-sites-box">
                                 <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}" loading="lazy" alt="{{ \App\Helpers\Utils::lingual([$buddhist_site->name, $buddhist_site->getJson('description', 'name', $buddhist_site->name)]) }}"></div>
                                 <div class="bdd-sites-text">
-                                    <a href="{{ route('buddhist-sites.show', $buddhist_site->id) }}">
+                                    <a href="{{ route('buddhist-sites.show', $buddhist_site->slug ?? $buddhist_site->id) }}">
                                         {{ \App\Helpers\Utils::lingual([$buddhist_site->name, $buddhist_site->getJson('description', 'name', $buddhist_site->name)]) }}
                                     </a>
                                     <div class="bdd-sites-location">
                                         {{ \App\Helpers\Utils::lingual(['at ', '']) }}{{ \App\Helpers\Utils::lingual([$buddhist_site->location_name, $buddhist_site->getJson('description', 'location_name', $buddhist_site->location_name)]) }}</div>
                                     <p>{{ strip_tags($buddhist_site->getJson('description', 'intro', '')) }}</p>
                                 </div>
-                                <div class="bdd-sites-view"><a href="{{ route('buddhist-sites.show', $buddhist_site->id) }}">{{ \App\Helpers\Utils::lingual(['Read More', 'আরও পড়ুন']) }} <i class="fa-solid fa-arrow-right-long"></i></a></div>
+                                <div class="bdd-sites-view"><a href="{{ route('buddhist-sites.show', $buddhist_site->slug ?? $buddhist_site->id) }}">{{ \App\Helpers\Utils::lingual(['Read More', 'আরও পড়ুন']) }} <i class="fa-solid fa-arrow-right-long"></i></a></div>
                             </div>
                         </div>
                     </div>

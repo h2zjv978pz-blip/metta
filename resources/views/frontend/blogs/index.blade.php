@@ -26,7 +26,7 @@
             <div class="row">
                 @foreach($blogs as $blog)
                     <div class="col-xl-3 col-lg-4 mb-4">
-                        <a href="{{ route('blogs.show', $blog->id) }}" class="blog">
+                        <a href="{{ route('blogs.show', \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id) }}" class="blog">
                             <div class="blog-box">
                                 <div class="zoom"><img src="{{ $blog->getFeatureImageUrl() }}" loading="lazy" alt="{{ $blog->prop('title') }}"></div>
                                 <div class="blog-info">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="blog-text">
-                                    <h3 href="{{ route('blogs.show', $blog->id) }}" class="blog-head">{{ $blog->prop('title') }}</h3>
+                                    <h3 href="{{ route('blogs.show', \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id) }}" class="blog-head">{{ $blog->prop('title') }}</h3>
                                     <div class="blog-sub-head">{{ $blog->prop('author') }}</div>
                                     <p>
                                         {{ \Illuminate\Support\Str::limit(\App\Helpers\Utils::getPlainText($blog->prop('body')), 200) }}

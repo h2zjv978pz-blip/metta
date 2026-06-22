@@ -24,7 +24,17 @@ class TeachingController extends Controller
 
     public function show($locale, $id)
     {
-        $teaching = $this->repo->findTeaching($id);
+        if (ctype_digit((string) $id)) {
+            $teaching = $this->repo->findTeaching($id);
+
+            if ($teaching && !empty($teaching->props['title'])) {
+                return redirect()->route('teachings.show', ['locale' => $locale, 'teaching' => \Illuminate\Support\Str::slug($teaching->props['title'])], 301);
+            }
+        } else {
+            $teaching = $this->repo->findTeachingBySlug($id);
+        }
+
+        abort_unless($teaching, 404);
 
         return view('frontend.teachings.show', compact('teaching'));
     }

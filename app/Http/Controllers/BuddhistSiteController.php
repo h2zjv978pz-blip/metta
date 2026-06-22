@@ -24,7 +24,17 @@ class BuddhistSiteController extends Controller
 
     public function show($locale, $id)
     {
-        $buddhist_site = $this->repo->findBuddhistSite($id);
+        if (ctype_digit((string) $id)) {
+            $buddhist_site = $this->repo->findBuddhistSite($id);
+
+            if ($buddhist_site && $buddhist_site->slug) {
+                return redirect()->route('buddhist-sites.show', ['locale' => $locale, 'buddhist_site' => $buddhist_site->slug], 301);
+            }
+        } else {
+            $buddhist_site = $this->repo->findBuddhistSiteBySlug($id);
+        }
+
+        abort_unless($buddhist_site, 404);
 
         return view('frontend.buddhist-sites.show', compact('buddhist_site'));
     }

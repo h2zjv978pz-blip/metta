@@ -17,6 +17,11 @@ class TeachingRepository
             ->first();
     }
 
+    public function findTeachingBySlug($slug)
+    {
+        return $this->getTeachings()->first(fn($t) => \Illuminate\Support\Str::slug($t->props['title'] ?? '') === $slug);
+    }
+
     public function getTeachings($request = null)
     {
         $teachings = StorageItem::ofType('teachings');

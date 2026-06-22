@@ -11,6 +11,23 @@ class BuddhistSite extends Model
 {
     use HasFactory, JsonPropManager;
 
+    protected static function booted()
+    {
+        static::saving(function (BuddhistSite $site) {
+            if (empty($site->slug) && !empty($site->name)) {
+                $base = Str::slug($site->name) ?: 'site';
+                $slug = $base;
+                $i = 1;
+
+                while (static::where('slug', $slug)->where('id', '!=', $site->id ?? 0)->exists()) {
+                    $slug = $base . '-' . (++$i);
+                }
+
+                $site->slug = $slug;
+            }
+        });
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);

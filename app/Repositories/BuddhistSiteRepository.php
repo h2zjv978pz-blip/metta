@@ -17,6 +17,11 @@ class BuddhistSiteRepository
         return BuddhistSite::find($id);
     }
 
+    public function findBuddhistSiteBySlug($slug)
+    {
+        return BuddhistSite::where('slug', $slug)->first();
+    }
+
     public function getBuddhistSites($request = null)
     {
         $buddhist_sites = BuddhistSite::query();

@@ -20,6 +20,11 @@ class BlogRepository
             ->first();
     }
 
+    public function findBlogBySlug($slug)
+    {
+        return $this->getBlogs()->first(fn($b) => Str::slug($b->props['title'] ?? '') === $slug);
+    }
+
     public function getBlogs($request = null)
     {
         $blogs = StorageItem::ofType('blogs');

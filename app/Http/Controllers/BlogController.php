@@ -21,7 +21,18 @@ class BlogController extends Controller
 
     public function show($locale, $id)
     {
-        $blog = $this->repo->findBlog($id);
+        if (ctype_digit((string) $id)) {
+            $blog = $this->repo->findBlog($id);
+
+            if ($blog && !empty($blog->props['title'])) {
+                return redirect()->route('blogs.show', ['locale' => $locale, 'blog' => \Illuminate\Support\Str::slug($blog->props['title'])], 301);
+            }
+        } else {
+            $blog = $this->repo->findBlogBySlug($id);
+        }
+
+        abort_unless($blog, 404);
+
         $more_blogs = $this->repo->getOtherBlogs($blog->id);
 
         return view('frontend.blogs.show', compact('blog', 'more_blogs'));

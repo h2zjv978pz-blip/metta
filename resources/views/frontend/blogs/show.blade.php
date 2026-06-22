@@ -80,12 +80,12 @@
                         @foreach($more_blogs as $blog)
                             <div class="op">
                                 <div class="op-img">
-                                    <a href="{{ route('blogs.show', $blog->id) }}"><img src="{{ $blog->getFeatureImageUrl() }}" alt="{{ $blog->prop('title') }}"></a>
+                                    <a href="{{ route('blogs.show', \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id) }}"><img src="{{ $blog->getFeatureImageUrl() }}" alt="{{ $blog->prop('title') }}"></a>
                                 </div>
                                 <div class="op-text">
-                                    <h6><a href="{{ route('blogs.show', $blog->id) }}">{{ $blog->prop('title') }}</a></h6>
+                                    <h6><a href="{{ route('blogs.show', \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id) }}">{{ $blog->prop('title') }}</a></h6>
                                     <p>
-                                        <a href="{{ route('blogs.show', $blog->id) }}">{{ $blog->prop('author') }}</a>
+                                        <a href="{{ route('blogs.show', \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id) }}">{{ $blog->prop('author') }}</a>
                                     </p>
                                 </div>
                             </div>
