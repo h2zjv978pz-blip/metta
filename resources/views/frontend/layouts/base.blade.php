@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('_frontend/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/fotorama-4.6.4/fotorama.css') }}">
-    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.015">
+    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.016">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('_common/img/favicon/apple-touch-icon.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-16x16.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-32x32.png') }}?v=1.001">
@@ -431,7 +431,7 @@
 <script src="{{ asset('_frontend/js/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('_frontend/vendor/fotorama-4.6.4/fotorama.js') }}"></script>
 <script src="{{ asset('_frontend/vendor/mixitup-3/mixitup.min.js') }}"></script>
-<script src="{{ asset('_frontend/js/morph.js') }}?v=1.004"></script>
+<script src="{{ asset('_frontend/js/morph.js') }}?v=1.005"></script>
 
 <script>
     $(document).ready(function () {

@@ -935,6 +935,39 @@ padding: 5px;
     .owl-bdd .bdd-sites-view {
         display: none;
     }
+
+    /* Force a static 2-column grid showing all items instead of a sliding carousel */
+    .owl-bdd.owl-carousel {
+        display: block !important;
+    }
+
+    .owl-bdd .owl-stage-outer {
+        overflow: visible !important;
+    }
+
+    .owl-bdd .owl-stage {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4px !important;
+        width: 100% !important;
+        transform: none !important;
+        left: 0 !important;
+    }
+
+    .owl-bdd .owl-item {
+        width: 100% !important;
+        float: none !important;
+        margin: 0 !important;
+    }
+
+    .owl-bdd .owl-item .element-item {
+        margin: 0 !important;
+    }
+
+    .owl-bdd .owl-nav,
+    .owl-bdd .owl-dots {
+        display: none !important;
+    }
 }
 /* TEACHINGS PAGE*/
 #teachings {

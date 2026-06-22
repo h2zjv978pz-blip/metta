@@ -441,8 +441,8 @@ Example: https://setstori.blogspot.com/2016/01/nightmareside.html
         items: 2,
         margin: 10,
         responsive: {
-            0: {items: 2, margin: 8},
-            480: {items: 2, margin: 8},
+            0: {items: 2, margin: 8, loop: false, autoplay: false, nav: false},
+            480: {items: 2, margin: 8, loop: false, autoplay: false, nav: false},
             744: {items: 2},
             756: {items: 2},
             768: {items: 2},
