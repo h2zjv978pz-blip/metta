@@ -226,39 +226,7 @@
                     {{ \App\Helpers\Utils::lingual(['LIBRARY', 'লাইব্রেরি']) }}
                 </a>
 
-                <div class="dropdown-content">
-                    <div class="pb-3">
-                        <h6>BOOKS</h6>
-                        <ul>
-                            <li><a href="{{ route('library.books') }}">Books</a></li>
-                            <li><a href="{{ route('library.books', ['category' => 'Spiritual']) }}">Spiritual</a></li>
-                            <li><a href="{{ route('library.books', ['category' => 'Children Books']) }}">Children Books</a></li>
-                        </ul>
-                    </div>
-                    <div class="pb-3">
-                        <h6>VIDEO</h6>
-                        <ul>
-                            <li><a href="{{ route('library.videos') }}">Latest Videos</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Lecture']) }}">Lectures</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Meditation']) }}">Meditation</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Kids Gallery']) }}">Kids Gallery</a></li>
-                        </ul>
-                    </div>
-                    <div class="pb-3">
-                        <h6>AUDIO</h6>
-                        <ul>
-                            <li><a href="{{ route('library.audios') }}">Audios</a></li>
-                            <li><a href="{{ route('library.audios', ['category' => 'Meditation']) }}">Meditation</a></li>
-                            <li><a href="{{ route('library.audios', ['category' => 'Chanting']) }}">Chanting</a></li>
-                        </ul>
-                    </div>
-                    <div class="pb-3">
-                        <h6>IMAGE GALLERY</h6>
-                        <ul>
-                            <li><a href="{{ route('library.image-gallery', ['category' => 'General']) }}">Galleries</a></li>
-                        </ul>
-                    </div>
-                </div>
+                @include('frontend.partials.library-dropdown-content')
             </li>
             <li data-menu-key="research">
                 <a href="{{ route('blogs.index') }}">
@@ -275,15 +243,7 @@
                     {{ \App\Helpers\Utils::lingual(["KID'S CORNER", 'শিশু কর্নার']) }}
                 </a>
 
-                <div class="dropdown-content">
-                    <div class="pb-3">
-                        <ul>
-                            <li><a href="{{ route('library.books', ['category' => 'Children Books']) }}">Children Books</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Kids Gallery']) }}">Kids Video Gallery</a></li>
-                            <li><a href="{{ route('library.image-gallery', ['category' => 'Kids Gallery']) }}">Kids Image Gallery</a></li>
-                        </ul>
-                    </div>
-                </div>
+                @include('frontend.partials.kids-corner-dropdown-content')
             </li>
             <li data-menu-key="donate">
                 <a href="{{ route('donate') }}">
@@ -350,39 +310,7 @@
                 <a href="#">
                     {{ \App\Helpers\Utils::lingual(['LIBRARY', 'লাইব্রেরি']) }}
                 </a>
-                <div class="dropdown-content">
-                    <div class="pb-3">
-                        <h6>BOOKS</h6>
-                        <ul>
-                            <li><a href="{{ route('library.books') }}">Books</a></li>
-                            <li><a href="{{ route('library.books', ['category' => 'Spiritual']) }}">Spiritual</a></li>
-                            <li><a href="{{ route('library.books', ['category' => 'Children Books']) }}">Children Books</a></li>
-                        </ul>
-                    </div>
-                    <div class="pb-3">
-                        <h6>VIDEO</h6>
-                        <ul>
-                            <li><a href="{{ route('library.videos') }}">Latest Videos</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Lecture']) }}">Lectures</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Meditation']) }}">Meditation</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Kids Gallery']) }}">Kids Gallery</a></li>
-                        </ul>
-                    </div>
-                    <div class="pb-3">
-                        <h6>AUDIO</h6>
-                        <ul>
-                            <li><a href="{{ route('library.audios') }}">Audios</a></li>
-                            <li><a href="{{ route('library.audios', ['category' => 'Meditation']) }}">Meditation</a></li>
-                            <li><a href="{{ route('library.audios', ['category' => 'Chanting']) }}">Chanting</a></li>
-                        </ul>
-                    </div>
-                    <div class="pb-3">
-                        <h6>IMAGE GALLERY</h6>
-                        <ul>
-                            <li><a href="{{ route('library.image-gallery', ['category' => 'General']) }}">Galleries</a></li>
-                        </ul>
-                    </div>
-                </div>
+                @include('frontend.partials.library-dropdown-content-mobile')
             </li>
             <li data-menu-key="research">
                 <a href="{{ route('blogs.index') }}">
@@ -393,15 +321,7 @@
                 <a href="#">
                     {{ \App\Helpers\Utils::lingual(["KID'S CORNER", 'শিশু কর্নার']) }}
                 </a>
-                <div class="dropdown-content">
-                    <div class="pb-3">
-                        <ul>
-                            <li><a href="{{ route('library.books', ['category' => 'Children Books']) }}">Children Books</a></li>
-                            <li><a href="{{ route('library.videos', ['category' => 'Kids Gallery']) }}">Kids Video Gallery</a></li>
-                            <li><a href="{{ route('library.image-gallery', ['category' => 'Kids Gallery']) }}">Kids Image Gallery</a></li>
-                        </ul>
-                    </div>
-                </div>
+                @include('frontend.partials.kids-corner-dropdown-content')
             </li>
             <li data-menu-key="donate">
                 <a href="{{ route('donate') }}">

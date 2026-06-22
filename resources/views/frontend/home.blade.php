@@ -1,5 +1,11 @@
 @extends('frontend.layouts.base')
 
+@section('styles')
+    @if(!empty($data['homeSlides']) && $data['homeSlides']->first())
+        <link rel="preload" as="image" href="{{ $data['homeSlides']->first()->getImageUrl('image') }}" fetchpriority="high">
+    @endif
+@endsection
+
 @section('main-content')
     <section id="home" data-section-key="hero">
         <div class="home-slide container-fluid">
@@ -212,7 +218,7 @@
                                         <div class="bdd-sites-location">
                                             {{ \App\Helpers\Utils::lingual(['at ', '']) }}{{ \App\Helpers\Utils::lingual([$buddhist_site->location_name, $buddhist_site->getJson('description', 'location_name', $buddhist_site->location_name)]) }}
                                         </div>
-                                        <p>{{ $buddhist_site->getJson('description', 'intro') }}</p>
+                                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($buddhist_site->getJson('description', 'intro', '')), 140) }}</p>
                                     </div>
                                     <div class="bdd-sites-view"><a href="{{ route('buddhist-sites.show', $buddhist_site->slug ?? $buddhist_site->id) }}">{{ \App\Helpers\Utils::lingual(['Read More', 'আরও পড়ুন']) }} <i class="fa-solid fa-arrow-right-long"></i></a></div>
                                 </div>
