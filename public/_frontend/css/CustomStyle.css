@@ -2696,6 +2696,10 @@ footer h5 {
         flex-direction: column;
         position: initial;
         background-color: transparent;
+        display: none;
+    }
+    .lib-dropdown:hover .dropdown-content {
+        display: flex;
     }
     .lib-dropdown .dropdown-content ul {
         display: flex;
