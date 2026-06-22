@@ -423,11 +423,11 @@
         var menuOrder = @json($gData['menuOrder'] ?? []);
         if (!menuOrder || !menuOrder.length) return;
 
-        document.querySelectorAll('nav.menu .menu-ul').forEach(function (ul) {
-            var unkeyed = Array.from(ul.querySelectorAll('li:not([data-menu-key])'));
+        document.querySelectorAll('nav.menu > .menu-ul').forEach(function (ul) {
+            var unkeyed = Array.from(ul.querySelectorAll(':scope > li:not([data-menu-key])'));
 
             menuOrder.forEach(function (key) {
-                var li = ul.querySelector('li[data-menu-key="' + key + '"]');
+                var li = ul.querySelector(':scope > li[data-menu-key="' + key + '"]');
                 if (li) ul.appendChild(li);
             });
 
