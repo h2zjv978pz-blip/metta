@@ -1,10 +1,18 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'Video')
+@section('page-title', \App\Helpers\Utils::lingual(['Video', 'ভিডিও']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Watch videos on Buddhist teachings, meditation, and lectures.', 'বৌদ্ধ শিক্ষা, ধ্যান এবং বক্তৃতার ভিডিও দেখুন।']))
 
 @section('main-content')
     <section class="pd-top pd-bottom">
         <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('library.index') }}">{{ \App\Helpers\Utils::lingual(['Library', 'লাইব্রেরি']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Video', 'ভিডিও']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
                 <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>Video</span>

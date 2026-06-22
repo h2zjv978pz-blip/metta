@@ -1,10 +1,18 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'Audio')
+@section('page-title', \App\Helpers\Utils::lingual(['Audio', 'অডিও']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Listen to Buddhist chanting and meditation audio.', 'বৌদ্ধ জপ এবং ধ্যানের অডিও শুনুন।']))
 
 @section('main-content')
     <section  class="pd-top">
         <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('library.index') }}">{{ \App\Helpers\Utils::lingual(['Library', 'লাইব্রেরি']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Audio', 'অডিও']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
                 <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>Audio</span>

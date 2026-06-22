@@ -1,12 +1,20 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'Books')
+@section('page-title', \App\Helpers\Utils::lingual(['Books', 'বই']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Browse our collection of Buddhist books and spiritual literature.', 'আমাদের বৌদ্ধ বই এবং আত্মিক সাহিত্যের সংগ্রহ দেখুন।']))
 
 @section('main-content')
     <section  class="pd-top pd-bottom">
         <div class="container d-flex align-items-center flex-column justify-content-center">
+            <nav aria-label="breadcrumb" class="w-100">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('library.index') }}">{{ \App\Helpers\Utils::lingual(['Library', 'লাইব্রেরি']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Books', 'বই']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>BOOKS</span>
                 <h2>{{ strtoupper(in_array(Request::query('category'), \App\Repositories\BookRepository::$categories) ? Request::query('category') : 'BOOKS COLLECTION') }}</h2>
             </div>
@@ -17,7 +25,7 @@
                         <div class="row book-bg">
                             <div class="col-lg-2 col-md-4 ">
                                 <div class="books-img">
-                                    <img src="{{ $book->getFeatureImageUrl() }}">
+                                    <img src="{{ $book->getFeatureImageUrl() }}" loading="lazy" alt="{{ $book->prop('title') }}">
                                     <div class="books-icons mt-2">
                                         {{--                                <a href="{{ asset('storage/doc/' . $book->prop('book_pdf')) }}" title="Download"><i class="bi bi-cloud-download"></i></a>--}}
                                         {{--                                <span>|</span>--}}

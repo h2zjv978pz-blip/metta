@@ -1,13 +1,20 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'List of Teachings')
+@section('page-title', \App\Helpers\Utils::lingual(['Teachings', 'শিক্ষা']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Explore the teachings of Lord Buddha.', 'গৌতম বুদ্ধের শিক্ষা অন্বেষণ করুন।']))
 
 @section('main-content')
     <!-- BUDDHIST SITES Section -->
     <section id="teachings" class="pd-top pd-bottom">
         <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Teachings', 'শিক্ষা']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>TEACHINGS</span>
                 <h2>THE TEACHINGS OF LORD BUDDHA</h2>
             </div>
@@ -17,7 +24,7 @@
                     <div class="col-lg-4 mb-4">
                         <a href="{{ route('teachings.show', $teaching->id) }}" class="teach-blog">
                             <div class="teach-blog-box">
-                                <div class="zoom"><img src="{{ $teaching->getFeatureImageUrl() }}"></div>
+                                <div class="zoom"><img src="{{ $teaching->getFeatureImageUrl() }}" loading="lazy" alt="{{ $teaching->prop('title') }}"></div>
                                 <div class="teach-blog-info">
                                     <div class="row">
                                         <div class="col-4 text-center">{{ $teaching->created_at->format('d M y') }}</div>
@@ -176,7 +183,7 @@
                     @if(!empty($teachings_slides->count() > 0))
                         @foreach($teachings_slides as $teachings_slide)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="3000">
-                                <img src="{{ asset('storage/img/' . $teachings_slide->prop('image')) }}" class="d-block w-100" alt="Slide Image">
+                                <img src="{{ asset('storage/img/' . $teachings_slide->prop('image')) }}" class="d-block w-100" alt="{{ \Illuminate\Support\Str::limit(strip_tags($teachings_slide->prop('caption', '')), 100) }}">
                                 <div class="carousel-caption">
                                     <q>{{ $teachings_slide->prop('caption') }}</q>
                                 </div>
@@ -184,19 +191,19 @@
                         @endforeach
                     @else
                         <div class="carousel-item active" data-bs-interval="3000">
-                            <img src="{{ asset('_common/img/buddhist_site/pexels-lu-zhao-16773960.jpg') }}" class="d-block w-100" alt="...">
+                            <img src="{{ asset('_common/img/buddhist_site/pexels-lu-zhao-16773960.jpg') }}" class="d-block w-100" alt="Buddhist teaching">
                             <div class="carousel-caption">
                                 <q>The past is gone, the future is not yet here, and if we do not go back to ourselves in the present moment, we cannot be in touch with life.</q>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('_common/img/buddhist_site/pexels-pixabay-415708.jpg') }}" class="d-block w-100" alt="...">
+                            <img src="{{ asset('_common/img/buddhist_site/pexels-pixabay-415708.jpg') }}" class="d-block w-100" alt="Buddhist teaching">
                             <div class="carousel-caption">
                                 <q>The past is gone, the future is not yet here, and if we do not go back to ourselves in the present moment, we cannot be in touch with life.</q>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('_common/img/buddhist_site/pexels-sirinat-inopas-246935.jpg') }}" class="d-block w-100" alt="...">
+                            <img src="{{ asset('_common/img/buddhist_site/pexels-sirinat-inopas-246935.jpg') }}" class="d-block w-100" alt="Buddhist teaching">
                             <div class="carousel-caption">
                                 <q>The past is gone, the future is not yet here, and if we do not go back to ourselves in the present moment, we cannot be in touch with life.</q>
                             </div>

@@ -14,7 +14,7 @@
                                     <p>{{ $homeSlide->prop('title', 'Following in the Buddha\'s Footsteps') }}</p>
 
                                     <div class="logo wheel">
-                                        <img src="{{ asset('_common/img/wheel.png') }}">
+                                        <img src="{{ asset('_common/img/wheel.png') }}" alt="">
                                     </div>
                                     <div class="animate__animated animate__fadeInUp my-btn-div">
                                         <a href="{{ $homeSlide->prop('link', route('about-us')) }}" class="my-btn btn-02">Read More</a>
@@ -30,7 +30,7 @@
 {{--                                <p>Following in the Buddha's Footsteps</p>--}}
 
 {{--                                <div class="logo wheel">--}}
-{{--                                    <img src="{{ asset('_common/img/wheel.png') }}">--}}
+{{--                                    <img src="{{ asset('_common/img/wheel.png') }}" alt="">--}}
 {{--                                </div>--}}
 {{--                                <div class="animate__animated animate__fadeInUp my-btn-div">--}}
 {{--                                    <a href="{{ route('about-us') }}" class="my-btn btn-02">Read More</a>--}}
@@ -45,7 +45,7 @@
 {{--                                <p>Following in the Buddha's Footsteps</p>--}}
 
 {{--                                <div class="logo wheel">--}}
-{{--                                    <img src="{{ asset('_common/img/wheel.png') }}">--}}
+{{--                                    <img src="{{ asset('_common/img/wheel.png') }}" alt="">--}}
 {{--                                </div>--}}
 {{--                                <div class="animate__animated animate__fadeInUp my-btn-div">--}}
 {{--                                    <a href="{{ route('about-us') }}" class="my-btn btn-02">Read More</a>--}}
@@ -60,7 +60,7 @@
 {{--                                <p>Following in the Buddha's Footsteps</p>--}}
 
 {{--                                <div class="logo wheel">--}}
-{{--                                    <img src="{{ asset('_common/img/wheel.png') }}">--}}
+{{--                                    <img src="{{ asset('_common/img/wheel.png') }}" alt="">--}}
 {{--                                </div>--}}
 {{--                                <div class="animate__animated animate__fadeInUp my-btn-div">--}}
 {{--                                    <a href="{{ route('about-us') }}" class="my-btn btn-02">Read More</a>--}}
@@ -148,7 +148,7 @@
     <section class="pd-top" data-section-key="library">
         <div class="container">
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>LIBRARY</span>
                 <h2>OUR ARCHIVES</h2>
             </div>
@@ -193,7 +193,7 @@
         </style>
         <div class="container">
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>HIGHLIGHTS</span>
                 <h2>BUDDHIST SITES</h2>
             </div>
@@ -203,7 +203,7 @@
                         <div class="overflow-hidden mx-3 element-item">
                             <div class="bdd-sites">
                                 <div class="bdd-sites-box">
-                                    <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}" loading="lazy"></div>
+                                    <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}" loading="lazy" alt="{{ \App\Helpers\Utils::lingual([$buddhist_site->name, $buddhist_site->getJson('description', 'name', $buddhist_site->name)]) }}"></div>
                                     <div class="bdd-sites-text">
                                         <a href="{{ route('buddhist-sites.show', $buddhist_site->id) }}">
 {{--                                            {{ \App\Helpers\Utils::getContentLang() == 'en' ? $buddhist_site->name : $buddhist_site->getJson('description', 'name') }}--}}

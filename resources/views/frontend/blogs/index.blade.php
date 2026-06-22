@@ -1,6 +1,7 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'Research & Publications')
+@section('page-title', \App\Helpers\Utils::lingual(['Research & Publications', 'গবেষণা ও প্রকাশনা']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Research, articles, and publications on Buddhism and meditation.', 'বৌদ্ধধর্ম ও ধ্যানের উপর গবেষণা, প্রবন্ধ এবং প্রকাশনা।']))
 
 @section('main-content')
     <section>
@@ -11,8 +12,14 @@
             </div>
         </div>
         <div class="container pd-top pd-bottom">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Research & Publication', 'গবেষণা ও প্রকাশনা']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>{{ \App\Helpers\Utils::lingual(['Research & Publication', 'গবেষণা ও প্রকাশনা']) }}</span>
                 <h2>{{ \App\Helpers\Utils::lingual(['OUR RESEARCH & PUBLICATIONS', 'আমাদের গবেষণা ও প্রকাশনা']) }}</h2>
             </div>
@@ -21,7 +28,7 @@
                     <div class="col-xl-3 col-lg-4 mb-4">
                         <a href="{{ route('blogs.show', $blog->id) }}" class="blog">
                             <div class="blog-box">
-                                <div class="zoom"><img src="{{ $blog->getFeatureImageUrl() }}"></div>
+                                <div class="zoom"><img src="{{ $blog->getFeatureImageUrl() }}" loading="lazy" alt="{{ $blog->prop('title') }}"></div>
                                 <div class="blog-info">
                                     <div class="row">
                                         <div class="col-4 text-center">{{ $blog->created_at->format('d M y') }}</div>

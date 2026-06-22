@@ -1,12 +1,19 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'Library')
+@section('page-title', \App\Helpers\Utils::lingual(['Library', 'লাইব্রেরি']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Browse books, videos, audios, and image galleries in our digital archive.', 'আমাদের ডিজিটাল আর্কাইভে বই, ভিডিও, অডিও এবং ছবির গ্যালারি দেখুন।']))
 
 @section('main-content')
 <section  class="pd-top pd-bottom">
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Library', 'লাইব্রেরি']) }}</li>
+            </ol>
+        </nav>
         <div class="title">
-            <img src="{{ asset('_common/img/title-icon.png') }}">
+            <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
             <span>LIBRARY</span>
             <h2>OUR ARCHIVES</h2>
         </div>
@@ -49,25 +56,25 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="{{ asset('_common/img/library/pexels-rdne-stock-project-8711443.jpg') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('_common/img/library/pexels-rdne-stock-project-8711443.jpg') }}" class="d-block w-100" alt="">
                     <div class="carousel-caption">
                         <q>The mind can go in a thousand directions, but on this beautiful path, I walk in peace. With each step, the wind blows. With each step, a flower blooms.</q>
                     </div>
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="{{ asset('_common/img/library/pexels-pixabay-220650.jpg') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('_common/img/library/pexels-pixabay-220650.jpg') }}" class="d-block w-100" alt="">
                     <div class="carousel-caption">
                         <q>The mind can go in a thousand directions, but on this beautiful path, I walk in peace. With each step, the wind blows. With each step, a flower blooms.</q>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('_common/img/library/pexels-rdne-stock-project-8711124.jpg') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('_common/img/library/pexels-rdne-stock-project-8711124.jpg') }}" class="d-block w-100" alt="">
                     <div class="carousel-caption">
                         <q>The mind can go in a thousand directions, but on this beautiful path, I walk in peace. With each step, the wind blows. With each step, a flower blooms.</q>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('_common/img/library/pexels-aleksandar-pasaric-1344472.jpg') }}" class="d-block w-100" alt="...">
+                    <img src="{{ asset('_common/img/library/pexels-aleksandar-pasaric-1344472.jpg') }}" class="d-block w-100" alt="">
                     <div class="carousel-caption">
                         <q>The mind can go in a thousand directions, but on this beautiful path, I walk in peace. With each step, the wind blows. With each step, a flower blooms.</q>
                     </div>

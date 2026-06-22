@@ -1,13 +1,20 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'List of Buddhist Sites')
+@section('page-title', \App\Helpers\Utils::lingual(['Buddhist Sites', 'বৌদ্ধ স্থান']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Explore sacred Buddhist sites, temples, and historical landmarks across the region.', 'অঞ্চল জুড়ে পবিত্র বৌদ্ধ স্থান, মন্দির এবং ঐতিহাসিক স্থাপনা অন্বেষণ করুন।']))
 
 @section('main-content')
     <!-- BUDDHIST SITES Section -->
     <section id="buddhist_sites" class="pd-top pd-bottom">
         <div class="container mixitup-container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Buddhist Sites', 'বৌদ্ধ স্থান']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>{{ \App\Helpers\Utils::lingual(['HIGHLIGHTS', 'হাইলাইটস']) }}</span>
                 <h2>{{ \App\Helpers\Utils::lingual(['BUDDHIST SITE', 'বৌদ্ধ স্থান']) }}</h2>
             </div>
@@ -32,7 +39,7 @@
                     <div class="overflow-hidden col-lg-4 element-item mix {{ $buddhist_site->country->iso }}">
                         <div class="bdd-sites">
                             <div class="bdd-sites-box">
-                                <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}"></div>
+                                <div class="zoom"><img src="{{ $buddhist_site->getFeatureImageUrl() }}" loading="lazy" alt="{{ \App\Helpers\Utils::lingual([$buddhist_site->name, $buddhist_site->getJson('description', 'name', $buddhist_site->name)]) }}"></div>
                                 <div class="bdd-sites-text">
                                     <a href="{{ route('buddhist-sites.show', $buddhist_site->id) }}">
                                         {{ \App\Helpers\Utils::lingual([$buddhist_site->name, $buddhist_site->getJson('description', 'name', $buddhist_site->name)]) }}

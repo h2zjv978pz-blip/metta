@@ -1,6 +1,7 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'Image Gallery')
+@section('page-title', \App\Helpers\Utils::lingual(['Image Gallery', 'ছবির গ্যালারি']))
+@section('meta-description', \App\Helpers\Utils::lingual(['Browse our photo gallery of Buddhist sites, events, and teachings.', 'বৌদ্ধ স্থান, অনুষ্ঠান এবং শিক্ষার ছবির গ্যালারি দেখুন।']))
 
 @section('styles')
     <link href="{{ asset('_frontend/vendor/lightbox2/css/lightbox.css') }}" rel="stylesheet" />
@@ -9,8 +10,15 @@
 @section('main-content')
     <section class="pd-top pd-bottom">
         <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ \App\Helpers\Utils::lingual(['Home', 'হোম']) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('library.index') }}">{{ \App\Helpers\Utils::lingual(['Library', 'লাইব্রেরি']) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ \App\Helpers\Utils::lingual(['Image Gallery', 'ছবির গ্যালারি']) }}</li>
+                </ol>
+            </nav>
             <div class="title">
-                <img src="{{ asset('_common/img/title-icon.png') }}">
+                <img src="{{ asset('_common/img/title-icon.png') }}" alt="">
                 <span>IMAGE GALLERY</span>
                 <h2>
                     @if(!empty($image_gallery))
