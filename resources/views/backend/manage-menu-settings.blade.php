@@ -126,6 +126,28 @@
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Buddhist Sites Gallery Text</div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Controls the title and location text size shown over the Buddhist Sites gallery images on the homepage (mobile grid).</p>
+
+            <form action="{{ route('backend.tasks', ['task' => 'save-buddhist-sites-display']) }}" method="POST">
+                @csrf
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-12">
+                        @include('backend.partials.form.input', ['name' => 'title_font_size', 'label' => 'Title Font Size (px)', 'type' => 'number', 'useOld' => $data['buddhistSitesDisplay']['title_font_size']])
+                        @include('backend.partials.form.input', ['name' => 'location_font_size', 'label' => 'Location Font Size (px)', 'type' => 'number', 'useOld' => $data['buddhistSitesDisplay']['location_font_size']])
+
+                        @include('backend.partials.form.button', ['label' => 'Submit'])
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         function initDragOrderList(listId, inputId) {
             var list = document.getElementById(listId);

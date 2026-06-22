@@ -381,4 +381,27 @@ class StorageItemRepository
         ]);
         $so->save();
     }
+
+    public function getBuddhistSitesDisplay()
+    {
+        $bs = StorageItem::ofType('buddhist_sites_display')->first();
+
+        return [
+            'title_font_size'    => $bs?->prop('title_font_size') ?: 14,
+            'location_font_size' => $bs?->prop('location_font_size') ?: 11,
+        ];
+    }
+
+    public function saveBuddhistSitesDisplay($request)
+    {
+        $bs = StorageItem::firstOrNew([
+            'type'  => 'buddhist_sites_display'
+        ]);
+
+        $bs->setProps([
+            'title_font_size'    => !empty($request->title_font_size) ? (int) $request->title_font_size : 14,
+            'location_font_size' => !empty($request->location_font_size) ? (int) $request->location_font_size : 11,
+        ]);
+        $bs->save();
+    }
 }

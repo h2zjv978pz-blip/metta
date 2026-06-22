@@ -184,6 +184,13 @@
     </section>
 
     <section class="bdd-sites-highlight pd-top pd-bottom" data-section-key="buddhist_sites">
+        @php $bsDisplay = $gData['buddhistSitesDisplay'] ?? ['title_font_size' => 14, 'location_font_size' => 11]; @endphp
+        <style>
+            @media (max-width: 767px) {
+                .owl-bdd .bdd-sites-text a { font-size: {{ $bsDisplay['title_font_size'] }}px !important; }
+                .owl-bdd .bdd-sites-location { font-size: {{ $bsDisplay['location_font_size'] }}px !important; }
+            }
+        </style>
         <div class="container">
             <div class="title">
                 <img src="{{ asset('_common/img/title-icon.png') }}">
