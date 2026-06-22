@@ -410,11 +410,15 @@ class StorageItemRepository
         $ss = StorageItem::ofType('splash_screen')->first();
 
         return [
-            'enabled'   => $ss ? (bool) $ss->prop('enabled') : false,
-            'logo'      => $ss?->prop('logo'),
-            'logo_size' => $ss?->prop('logo_size') ?: 300,
-            'title'     => $ss?->prop('title') ?: 'Metta',
-            'tagline'   => $ss?->prop('tagline') ?: "Following in the Buddha's Footsteps",
+            'enabled'           => $ss ? (bool) $ss->prop('enabled') : false,
+            'logo'              => $ss?->prop('logo'),
+            'logo_size'         => $ss?->prop('logo_size') ?: 300,
+            'title'             => $ss?->prop('title') ?: 'Metta',
+            'tagline'           => $ss?->prop('tagline') ?: "Following in the Buddha's Footsteps",
+            'alignment'         => $ss?->prop('alignment') ?: 'center',
+            'font_family'       => $ss?->prop('font_family') ?: 'Poppins',
+            'title_font_size'   => $ss?->prop('title_font_size') ?: 32,
+            'tagline_font_size' => $ss?->prop('tagline_font_size') ?: 16,
         ];
     }
 
@@ -435,11 +439,15 @@ class StorageItemRepository
         }
 
         $ss->setProps([
-            'enabled'   => $request->boolean('enabled'),
-            'logo'      => $logo,
-            'logo_size' => !empty($request->logo_size) ? (int) $request->logo_size : 300,
-            'title'     => $request->title ?: 'Metta',
-            'tagline'   => $request->tagline ?: "Following in the Buddha's Footsteps",
+            'enabled'           => $request->boolean('enabled'),
+            'logo'              => $logo,
+            'logo_size'         => !empty($request->logo_size) ? (int) $request->logo_size : 300,
+            'title'             => $request->title ?: 'Metta',
+            'tagline'           => $request->tagline ?: "Following in the Buddha's Footsteps",
+            'alignment'         => in_array($request->alignment, ['left', 'center', 'right']) ? $request->alignment : 'center',
+            'font_family'       => $request->font_family ?: 'Poppins',
+            'title_font_size'   => !empty($request->title_font_size) ? (int) $request->title_font_size : 32,
+            'tagline_font_size' => !empty($request->tagline_font_size) ? (int) $request->tagline_font_size : 16,
         ]);
         $ss->save();
     }

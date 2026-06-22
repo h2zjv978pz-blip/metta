@@ -53,15 +53,47 @@
                         @include('backend.partials.form.input', ['name' => 'title', 'label' => 'Title', 'useOld' => $splash['title'], 'attributes' => ['oninput' => "document.getElementById('preview-title').innerText = this.value"]])
                         @include('backend.partials.form.input', ['name' => 'tagline', 'label' => 'Tagline', 'useOld' => $splash['tagline'], 'attributes' => ['oninput' => "document.getElementById('preview-tagline').innerText = this.value"]])
 
+                        <div class="form-group">
+                            <label class="form-control-label">Text Alignment</label>
+                            <select name="alignment" class="form-control" onchange="document.getElementById('preview-text-wrap').style.textAlign = this.value; document.getElementById('preview-text-wrap').style.alignItems = this.value === 'left' ? 'flex-start' : (this.value === 'right' ? 'flex-end' : 'center');">
+                                @foreach(['left' => 'Left', 'center' => 'Center', 'right' => 'Right'] as $key => $label)
+                                    <option value="{{ $key }}" {{ $splash['alignment'] == $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">Font</label>
+                            <select name="font_family" class="form-control" onchange="document.getElementById('preview-text-wrap').style.fontFamily = this.value;">
+                                @foreach(['Poppins' => 'Poppins (Default)', 'Prata' => 'Prata (Serif)', 'Rubik' => 'Rubik', 'Hind' => 'Hind', 'Roboto' => 'Roboto', 'Noto Sans Bengali' => 'Noto Sans Bengali (বাংলা)'] as $key => $label)
+                                    <option value="{{ $key }}" {{ $splash['font_family'] == $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">Title Font Size (px)</label>
+                            <input type="range" class="form-range" name="title_font_size" min="16" max="72" value="{{ $splash['title_font_size'] }}" oninput="document.getElementById('title-size-output').innerText = this.value + 'px'; document.getElementById('preview-title').style.fontSize = this.value + 'px';">
+                            <span id="title-size-output">{{ $splash['title_font_size'] }}px</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">Tagline Font Size (px)</label>
+                            <input type="range" class="form-range" name="tagline_font_size" min="10" max="40" value="{{ $splash['tagline_font_size'] }}" oninput="document.getElementById('tagline-size-output').innerText = this.value + 'px'; document.getElementById('preview-tagline').style.fontSize = this.value + 'px';">
+                            <span id="tagline-size-output">{{ $splash['tagline_font_size'] }}px</span>
+                        </div>
+
                         @include('backend.partials.form.button', ['label' => 'Submit'])
                     </div>
 
                     <div class="col-lg-5">
                         <label class="form-control-label text-muted">LIVE PREVIEW</label>
-                        <div style="background: #743233; border-radius: 8px; padding: 40px 20px; text-align: center; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <img id="preview-logo" src="{{ $currentLogoUrl }}" style="width: {{ $splash['logo_size'] }}px; max-width: 100%; margin-bottom: 16px;">
-                            <h3 id="preview-title" style="color: #fff; margin: 0;">{{ $splash['title'] }}</h3>
-                            <p id="preview-tagline" style="color: #f0e6e0; margin: 4px 0 0;">{{ $splash['tagline'] }}</p>
+                        <div style="background: #743233; border-radius: 8px; padding: 40px 20px; min-height: 280px; display: flex; align-items: center; justify-content: center;">
+                            <div id="preview-text-wrap" style="display: flex; flex-direction: column; text-align: {{ $splash['alignment'] }}; align-items: {{ $splash['alignment'] === 'left' ? 'flex-start' : ($splash['alignment'] === 'right' ? 'flex-end' : 'center') }}; font-family: '{{ $splash['font_family'] }}', sans-serif;">
+                                <img id="preview-logo" src="{{ $currentLogoUrl }}" style="width: {{ $splash['logo_size'] }}px; max-width: 100%; margin-bottom: 16px;">
+                                <h3 id="preview-title" style="color: #fff; margin: 0; font-size: {{ $splash['title_font_size'] }}px;">{{ $splash['title'] }}</h3>
+                                <p id="preview-tagline" style="color: #f0e6e0; margin: 4px 0 0; font-size: {{ $splash['tagline_font_size'] }}px;">{{ $splash['tagline'] }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @if(app()->getLocale() == 'bn')
+    @if(app()->getLocale() == 'bn' || ($gData['splashScreen']['font_family'] ?? null) == 'Noto Sans Bengali')
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -58,11 +58,15 @@
         $splash = $gData['splashScreen'];
         $splashLogoUrl = $splash['logo'] ? asset('storage/img/' . $splash['logo']) : ($gData['menuSettings']?->prop('logo_desktop') ? asset('storage/img/' . $gData['menuSettings']->prop('logo_desktop')) : asset('_common/img/metta-logo-11.png'));
     @endphp
+    @php
+        $splashAlign = $splash['alignment'] ?? 'center';
+        $splashAlignItems = $splashAlign === 'left' ? 'flex-start' : ($splashAlign === 'right' ? 'flex-end' : 'center');
+    @endphp
     <div id="site-splash-screen" class="site-splash-screen">
-        <div class="site-splash-content">
+        <div class="site-splash-content" style="text-align: {{ $splashAlign }}; align-items: {{ $splashAlignItems }}; font-family: '{{ $splash['font_family'] }}', sans-serif;">
             <img src="{{ $splashLogoUrl }}" style="width: {{ $splash['logo_size'] }}px; max-width: 80vw;">
-            <h1>{{ $splash['title'] }}</h1>
-            <p>{{ $splash['tagline'] }}</p>
+            <h1 style="font-size: {{ $splash['title_font_size'] }}px;">{{ $splash['title'] }}</h1>
+            <p style="font-size: {{ $splash['tagline_font_size'] }}px;">{{ $splash['tagline'] }}</p>
         </div>
     </div>
     <style>
@@ -82,7 +86,8 @@
             pointer-events: none;
         }
         .site-splash-content {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
         }
         .site-splash-content h1 {
             color: #fff;
