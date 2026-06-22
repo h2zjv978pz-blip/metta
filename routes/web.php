@@ -36,6 +36,8 @@ Route::get('/storage/{path}', function (string $path) {
     ]);
 })->where('path', '.*')->name('storage.serve');
 
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
 Route::get('/', function () {
     $locale = request()->cookie('site_locale');
 
