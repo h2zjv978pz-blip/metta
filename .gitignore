@@ -26,6 +26,7 @@ metta_backup.sql
 *.iml
 *.txt
 !ads.txt
+!robots.txt
 *.xlsx
 .styleci.yml
 .DS_Store

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /manage
+Disallow: /auth
+Allow: /
+
+Sitemap: https://mettabd.org/sitemap.xml
