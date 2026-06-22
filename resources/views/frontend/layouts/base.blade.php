@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('_frontend/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/fotorama-4.6.4/fotorama.css') }}">
-    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.019">
+    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.020">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('_common/img/favicon/apple-touch-icon.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-16x16.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-32x32.png') }}?v=1.001">
@@ -28,16 +28,53 @@
 
     @section('styles')@show
 
-    <meta name="description" content="{{ \App\Helpers\Utils::lingual(['Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.', 'মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।']) }}">
-    <meta property="og:title" content="{{ \App\Helpers\Utils::lingual(['Mettabd.org - A Buddhist Realm', 'Mettabd.org - একটি বৌদ্ধ রাজ্য']) }}">
-    <meta property="og:description" content="{{ \App\Helpers\Utils::lingual(['Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.', 'মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।']) }}">
-    <meta property="og:locale" content="{{ app()->getLocale() == 'bn' ? 'bn_BD' : 'en_US' }}">
+    @php
+        $defaultDescription = \App\Helpers\Utils::lingual(['Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.', 'মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।']);
+        $pageDescription = trim($__env->yieldContent('meta-description')) ?: $defaultDescription;
+        $pageTitle = trim($__env->yieldContent('page-title')) ?: \App\Helpers\Utils::lingual(['A Buddhist Realm', 'একটি বৌদ্ধ রাজ্য']);
+        $defaultOgImage = asset('_common/img/metta-logo-11.png');
+        $pageOgImage = trim($__env->yieldContent('og-image')) ?: $defaultOgImage;
+    @endphp
 
-    <title>Metta @hasSection('page-title')
-            - @yield('page-title')
-        @else
-            - {{ \App\Helpers\Utils::lingual(['A Buddhist Realm', 'একটি বৌদ্ধ রাজ্য']) }}
-        @endif</title>
+    <meta name="description" content="{!! $pageDescription !!}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Metta - {!! $pageTitle !!}">
+    <meta property="og:description" content="{!! $pageDescription !!}">
+    <meta property="og:image" content="{!! $pageOgImage !!}">
+    <meta property="og:locale" content="{{ app()->getLocale() == 'bn' ? 'bn_BD' : 'en_US' }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Metta - {!! $pageTitle !!}">
+    <meta name="twitter:description" content="{!! $pageDescription !!}">
+    <meta name="twitter:image" content="{!! $pageOgImage !!}">
+
+    <title>Metta - {!! $pageTitle !!}</title>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Metta",
+        "url": "{{ url('/') }}",
+        "logo": "{{ $defaultOgImage }}",
+        "description": {!! json_encode($defaultDescription) !!},
+        "sameAs": [
+            @php
+                $socialLinks = array_filter([
+                    $gData['socialLinks']?->prop('sLinkFaceBook'),
+                    $gData['socialLinks']?->prop('sLinkTwitter'),
+                    $gData['socialLinks']?->prop('sLinkInstagram'),
+                    $gData['socialLinks']?->prop('sLinkLinkedIn'),
+                    $gData['socialLinks']?->prop('sLinkWhatsapp'),
+                ]);
+            @endphp
+            {!! implode(',', array_map(fn($l) => json_encode($l), $socialLinks)) !!}
+        ]
+    }
+    </script>
+
+    @section('structured-data')@show
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5P3S92M78K"></script>

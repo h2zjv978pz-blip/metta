@@ -729,6 +729,20 @@ padding: 5px;
 
 
 /*BREADCRUMB*/
+nav[aria-label="breadcrumb"] {
+    margin-bottom: 1.5rem;
+}
+nav[aria-label="breadcrumb"] .breadcrumb {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+nav[aria-label="breadcrumb"] .breadcrumb-item a {
+    color: var(--color-09);
+    text-decoration: none;
+}
+nav[aria-label="breadcrumb"] .breadcrumb-item.active {
+    color: var(--color-01);
+}
 .breadcrumb-img {
     background-image: url("../../_common/img/bc01.jpg");
     height: 50vh;
