@@ -1011,6 +1011,118 @@ nav[aria-label="breadcrumb"] .breadcrumb-item.active {
         display: none !important;
     }
 }
+
+/* BUDDHIST SITES LISTING PAGE - mobile gallery grid */
+@media (max-width: 767px) {
+    #buddhist_sites .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+
+    #buddhist_sites .grid .element-item {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #buddhist_sites .bdd-sites {
+        padding: 0;
+        margin-bottom: 0;
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+    #buddhist_sites .zoom {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+    }
+
+    #buddhist_sites .zoom img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #buddhist_sites .bdd-sites-text {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
+        padding: 8px 10px;
+        margin: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+        z-index: 2;
+    }
+
+    #buddhist_sites .bdd-sites-text a {
+        color: #fff;
+        font-size: 13px;
+        line-height: 1.25;
+    }
+
+    #buddhist_sites .bdd-sites-location {
+        color: #eee;
+        font-size: 10px;
+    }
+
+    #buddhist_sites .bdd-sites-text p {
+        display: none;
+    }
+
+    #buddhist_sites .bdd-sites-view {
+        display: none;
+    }
+}
+
+/* VIDEO COLLECTION PAGE - mobile gallery grid */
+@media (max-width: 767px) {
+    .video-gallery-row {
+        --bs-gutter-x: 8px;
+    }
+
+    .video-gallery-item {
+        margin-bottom: 10px !important;
+    }
+
+    .video-gallery-item .video-wrap {
+        border: none;
+    }
+
+    .video-gallery-item .video-img-box img {
+        height: 90px !important;
+        object-fit: cover;
+    }
+
+    .video-gallery-item .play-btn i {
+        font-size: 1.1rem !important;
+    }
+
+    .video-gallery-item .card-body {
+        padding: 6px 8px;
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 4px;
+    }
+
+    .video-gallery-item .video-title {
+        font-size: 11px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .video-gallery-item .share-btn {
+        padding: 2px 6px;
+        font-size: 10px;
+    }
+}
 /* TEACHINGS PAGE*/
 #teachings {
     background-attachment: fixed;

@@ -19,7 +19,7 @@
                 <h2>{{ strtoupper(in_array(Request::query('category'), \App\Repositories\VideoRepository::$categories) ? Request::query('category') : 'VIDEO COLLECTION') }}</h2>
             </div>
 
-            <div class="row">
+            <div class="row video-gallery-row">
                 @foreach($videos as $video)
                     @php
                         $isYouTube = App\Helpers\Utils::isYouTubeVideo($video->prop('video'));
@@ -29,7 +29,7 @@
                             $thumbnailUrl = $video->getFeatureImageUrl();
                         }
                     @endphp
-                    <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="col-6 col-lg-4 col-md-6 mb-4 video-gallery-item">
                         <div class="video-wrap card shadow-sm">
                             <a href="javascript:void(0);" class="video-link" data-video-id="{{ $video->id }}"
                                data-bs-toggle="modal" data-bs-target="#VideoModal"
