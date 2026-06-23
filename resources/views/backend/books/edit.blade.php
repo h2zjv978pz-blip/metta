@@ -5,14 +5,16 @@
 @section('main-content')
     <div class="card">
         <div class="card-body">
+            @include('backend.partials.lsf-toggle')
+
             <form action="{{ route('backend.books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-12">
-                        @include('backend.partials.form.input', ['name' => 'title', 'label' => 'Title', 'required' => true, 'useOld' => $book->prop('title')])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'title', 'lang_options' => ['en', 'bn'], 'labels' => ['Title', 'টাইটেল'], 'required' => true, 'useOld' => [$book, 'props', 'title']])
                         @include('backend.partials.form.select', ['name' => 'category', 'label' => 'Category', 'options' => \App\Repositories\BookRepository::$categories, 'required' => true, 'useOld' => $book->prop('category')])
-                        @include('backend.partials.form.input', ['name' => 'author', 'label' => 'Author Name', 'required' => true, 'useOld' => $book->prop('author')])
-                        @include('backend.partials.form.textarea', ['name' => 'summary', 'label' => 'Book Summary/Intro', 'row' => 8, 'required' => true, 'useOld' => $book->prop('summary')])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'author', 'lang_options' => ['en', 'bn'], 'labels' => ['Author Name', 'লেখক'], 'required' => true, 'useOld' => [$book, 'props', 'author']])
+                        @include('backend.partials.form.lsf.lsf-textarea', ['name' => 'summary', 'lang_options' => ['en', 'bn'], 'labels' => ['Book Summary/Intro', 'সারাংশ'], 'row' => 8, 'required' => true, 'useOld' => [$book, 'props', 'summary']])
                         @include('backend.partials.form.input', ['name' => 'pub_year', 'label' => 'Year of Publishing', 'useOld' => $book->prop('pub_year')])
 
                         <h6 class="c-h6">Change Book PDF</h6>

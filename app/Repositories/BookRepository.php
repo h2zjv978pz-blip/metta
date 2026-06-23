@@ -49,10 +49,13 @@ class BookRepository
 
         $book->setProps([
             'title'             => $request->title,
+            'title_bn'          => $request->title_bn ?? null,
             'author'            => $request->author,
+            'author_bn'         => $request->author_bn ?? null,
             'pub_year'          => $request->pub_year,
             'category'          => $request->category ?? null,
             'summary'           => $request->summary,
+            'summary_bn'        => $request->summary_bn ?? null,
             'book_pdf'          => $book_pdf ?? null,
             'book_url'          => $book_url ?? null,
             'feature_image'     => $feature_image,
@@ -79,10 +82,13 @@ class BookRepository
 
         $book->setProps([
             'title'             => $request->title,
+            'title_bn'          => $request->title_bn ?? null,
             'author'            => $request->author,
+            'author_bn'         => $request->author_bn ?? null,
             'pub_year'          => $request->pub_year,
             'category'          => $request->category ?? null,
             'summary'           => $request->summary,
+            'summary_bn'        => $request->summary_bn ?? null,
             'book_pdf'          => $book_pdf ?? $book->prop('book_pdf', null),
             'book_url'          => $book_url ?? $book->prop('book_url', null),
             'feature_image'     => $feature_image ?? $book->prop('feature_image', null),

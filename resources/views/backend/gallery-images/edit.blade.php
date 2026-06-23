@@ -16,6 +16,8 @@
                 </div>
             @endif
 
+            @include('backend.partials.lsf-toggle')
+
             <form action="{{ route('backend.gallery-images.update', $gallery_image->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -33,10 +35,7 @@
                     </div>
                 @endif
 
-                <div class="mb-3">
-                    <label for="title" class="form-label">Gallery Title <span class="text-danger">*</span></label>
-                    <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $gallery_image->prop('title')) }}" required>
-                </div>
+                @include('backend.partials.form.lsf.lsf-input', ['name' => 'title', 'lang_options' => ['en', 'bn'], 'labels' => ['Gallery Title', 'গ্যালারি টাইটেল'], 'required' => true, 'useOld' => [$gallery_image, 'props', 'title']])
 
                 @include('backend.partials.form.select', ['name' => 'category', 'label' => 'Category', 'options' => \App\Repositories\GalleryImageRepository::$categories, 'required' => true, 'useOld' => $gallery_image->prop('category')])
 

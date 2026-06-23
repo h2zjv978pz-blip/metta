@@ -49,12 +49,15 @@ class ProjectRepository
 
         $project->setProps([
             'name'              => $request->name,
+            'name_bn'           => $request->name_bn ?? null,
             'category'          => intval($request->category),
             'type'              => $request->type,
             'client'            => $request->client,
             'location'          => $request->location,
+            'location_bn'       => $request->location_bn ?? null,
             'time'              => $request->time,
             'description'       => $request->description,
+            'description_bn'    => $request->description_bn ?? null,
             'feature_image'     => $feature_image ?? null,
             'gallery_images'    => $gallery_images ?? null,
             'video'             => $video ?? null,
@@ -93,11 +96,15 @@ class ProjectRepository
 
         $project->setProps([
             'name'              => $request->name,
+            'name_bn'           => $request->name_bn ?? null,
             'category'          => intval($request->category),
+            'type'              => $request->type ?? $project->prop('type'),
             'client'            => $request->client,
             'location'          => $request->location,
+            'location_bn'       => $request->location_bn ?? null,
             'time'              => $request->time,
             'description'       => $request->description,
+            'description_bn'    => $request->description_bn ?? null,
             'feature_image'     => $feature_image ?? $project->prop('feature_image'),
             'gallery_images'    => $gallery_images,
             'video'             => $video ?? $project->prop('video'),

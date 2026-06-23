@@ -5,16 +5,18 @@
 @section('main-content')
     <div class="card">
         <div class="card-body">
+            @include('backend.partials.lsf-toggle')
+
             <form action="{{ route('backend.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-12">
-                        @include('backend.partials.form.input', ['name' => 'name', 'label' => 'Project Name', 'required' => true])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'name', 'lang_options' => ['en', 'bn'], 'labels' => ['Project Name', 'প্রজেক্টের নাম'], 'required' => true])
                         @include('backend.partials.form.select', ['name' => 'category', 'label' => 'Project Category', 'options' => $categories, 'useKeys' => true, 'required' => true])
                         @include('backend.partials.form.input', ['name' => 'client', 'label' => 'Client Name'])
-                        @include('backend.partials.form.input', ['name' => 'location', 'label' => 'Location'])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'location', 'lang_options' => ['en', 'bn'], 'labels' => ['Location', 'অবস্থান']])
                         @include('backend.partials.form.input', ['name' => 'time', 'label' => 'Project Time'])
-                        @include('backend.partials.form.textarea', ['name' => 'description', 'label' => 'Project Description', 'row' => 4])
+                        @include('backend.partials.form.lsf.lsf-textarea', ['name' => 'description', 'lang_options' => ['en', 'bn'], 'labels' => ['Project Description', 'বিবরণ'], 'row' => 4])
 
                         <h6 class="c-h6">Feature Image <small class="info">Size: 1000 x 1400</small></h6>
                         @include('backend.partials.form.image-file', ['name' => 'feature_image', 'label' => 'Feature Image', 'required' => true])

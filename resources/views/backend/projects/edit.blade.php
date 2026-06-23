@@ -3,18 +3,20 @@
 @section('page-title', 'Edit Project')
 
 @section('main-content')
+    @include('backend.partials.lsf-toggle')
+
     <form action="{{ route('backend.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-12">
-                        @include('backend.partials.form.input', ['name' => 'name', 'label' => 'Project Name', 'required' => true, 'useOld' => $project->prop('name')])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'name', 'lang_options' => ['en', 'bn'], 'labels' => ['Project Name', 'প্রজেক্টের নাম'], 'required' => true, 'useOld' => [$project, 'props', 'name']])
                         @include('backend.partials.form.select', ['name' => 'category', 'label' => 'Project Category', 'options' => $categories, 'useKeys' => true, 'required' => true, 'useOld' => $project->parent_id])
                         @include('backend.partials.form.input', ['name' => 'client', 'label' => 'Client Name', 'useOld' => $project->prop('client')])
-                        @include('backend.partials.form.input', ['name' => 'location', 'label' => 'Location', 'useOld' => $project->prop('location')])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'location', 'lang_options' => ['en', 'bn'], 'labels' => ['Location', 'অবস্থান'], 'useOld' => [$project, 'props', 'location']])
                         @include('backend.partials.form.input', ['name' => 'time', 'label' => 'Project Time', 'useOld' => $project->prop('time')])
-                        @include('backend.partials.form.textarea', ['name' => 'description', 'label' => 'Project Description', 'row' => 4, 'useOld' => $project->prop('description')])
+                        @include('backend.partials.form.lsf.lsf-textarea', ['name' => 'description', 'lang_options' => ['en', 'bn'], 'labels' => ['Project Description', 'বিবরণ'], 'row' => 4, 'useOld' => [$project, 'props', 'description']])
 
                         <h6 class="c-h6">Feature Image <small class="info">Size: 1000 x 1400</small></h6>
 

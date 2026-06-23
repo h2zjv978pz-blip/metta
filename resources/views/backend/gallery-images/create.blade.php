@@ -16,6 +16,8 @@
                 </div>
             @endif
 
+            @include('backend.partials.lsf-toggle')
+
             <form action="{{ route('backend.gallery-images.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -32,10 +34,7 @@
                     </div>
                 @endif
 
-                <div class="mb-3">
-                    <label for="title" class="form-label">Gallery Title <span class="text-danger">*</span></label>
-                    <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
-                </div>
+                @include('backend.partials.form.lsf.lsf-input', ['name' => 'title', 'lang_options' => ['en', 'bn'], 'labels' => ['Gallery Title', 'গ্যালারি টাইটেল'], 'required' => true])
 
                 @include('backend.partials.form.select', ['name' => 'category', 'label' => 'Category', 'options' => \App\Repositories\GalleryImageRepository::$categories, 'required' => true])
 

@@ -67,6 +67,7 @@ class StorageItemRepository
         $props = [
             'image'     => $imageName,
             'title'     => $request->title ?? null,
+            'title_bn'  => $request->title_bn ?? null,
             'link'      => $request->link ?? null,
         ];
 
@@ -87,6 +88,7 @@ class StorageItemRepository
         $props = [
             'image'     => $imageName ?? $hs->prop('image', null),
             'title'     => $request->title ?? null,
+            'title_bn'  => $request->title_bn ?? null,
             'link'      => $request->link ?? null,
         ];
 
@@ -208,7 +210,9 @@ class StorageItemRepository
         $testimonial->setProps([
             'person'        => $request->person,
             'designation'   => $request->designation,
+            'designation_bn' => $request->designation_bn ?? null,
             'testimonial'   => $request->testimonial,
+            'testimonial_bn' => $request->testimonial_bn ?? null,
             'photo'         => $photo ?? null,
         ]);
         $testimonial->save();
@@ -226,7 +230,9 @@ class StorageItemRepository
         $testimonial->setProps([
             'person'        => $request->person,
             'designation'   => $request->designation,
+            'designation_bn' => $request->designation_bn ?? null,
             'testimonial'   => $request->testimonial,
+            'testimonial_bn' => $request->testimonial_bn ?? null,
             'photo'         => $photo ?? $testimonial->prop('photo', null),
         ]);
         $testimonial->save();

@@ -34,7 +34,8 @@ class ProjectCategoryRepository
         $pc = new StorageItem();
         $pc->type = 'project_categories';
         $pc->setProps([
-            'name'  => $request->name
+            'name'      => $request->name,
+            'name_bn'   => $request->name_bn ?? null,
         ]);
         $pc->save();
     }
@@ -43,7 +44,8 @@ class ProjectCategoryRepository
     {
         $pc = $this->findProjectCategory($id);
         $pc->setProps([
-            'name'  => $request->name ?? $pc->prop('name')
+            'name'      => $request->name ?? $pc->prop('name'),
+            'name_bn'   => $request->name_bn ?? null,
         ]);
         $pc->save();
     }

@@ -73,8 +73,11 @@ class TeamMemberRepository
             'name'              => $request->name,
             'team'              => $request->team,
             'designation'       => $request->designation,
+            'designation_bn'    => $request->designation_bn ?? null,
             'qualification_l1'  => $request->qualification_l1,
+            'qualification_l1_bn' => $request->qualification_l1_bn ?? null,
             'qualification_l2'  => $request->qualification_l2,
+            'qualification_l2_bn' => $request->qualification_l2_bn ?? null,
             'photo'             => $photo ?? null,
             'social_links'      => $social_links
         ]);
@@ -104,8 +107,11 @@ class TeamMemberRepository
             'name'              => $request->name,
             'team'              => $request->team,
             'designation'       => $request->designation,
+            'designation_bn'    => $request->designation_bn ?? null,
             'qualification_l1'  => $request->qualification_l1,
+            'qualification_l1_bn' => $request->qualification_l1_bn ?? null,
             'qualification_l2'  => $request->qualification_l2,
+            'qualification_l2_bn' => $request->qualification_l2_bn ?? null,
             'photo'             => $photo ?? $tm->prop('photo'),
             'social_links'      => $social_links
         ]);

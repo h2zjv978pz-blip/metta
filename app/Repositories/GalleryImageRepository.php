@@ -49,6 +49,7 @@ class GalleryImageRepository
 
         $gallery_image->setProps([
             'title'             => $request->title,
+            'title_bn'          => $request->title_bn ?? null,
             'feature_image'     => $image,
             'category'          => $request->category ?? null,
             'gallery_images'    => $gallery_images ?? null,
@@ -83,11 +84,10 @@ class GalleryImageRepository
 
         $gallery_image->setProps([
             'title'             => $request->title,
+            'title_bn'          => $request->title_bn ?? null,
             'feature_image'     => $feature_image ?? $gallery_image->prop('feature_image'),
             'category'          => $request->category ?? $gallery_image->prop('category', null),
             'gallery_images'    => $gallery_images,
-
-
         ]);
 
         $gallery_image->save();

@@ -84,10 +84,13 @@
             <form action="{{ route('backend.tasks', ['task' => 'save-home-highlights']) }}" method="POST">
                 @csrf
 
+                @include('backend.partials.lsf-toggle')
+
                 <div class="row">
                     @foreach(['welcomeText'] as $key)
                         <div class="col-12">
-                            @include('backend.partials.form.textarea', ['name' => "highlights[{$key}]", 'label' => ucwords(preg_replace('/([a-z])([A-Z])/', "$1 $2", $key)), 'row' => 8, 'useOld' => $data['homeHighlights']?->prop($key)])
+                            @include('backend.partials.form.textarea', ['name' => "highlights[{$key}]", 'label' => ucwords(preg_replace('/([a-z])([A-Z])/', "$1 $2", $key)), 'row' => 8, 'class' => 'lsf en', 'useOld' => $data['homeHighlights']?->getJson('props', $key)])
+                            @include('backend.partials.form.textarea', ['name' => "highlights[{$key}_bn]", 'label' => 'ওয়েলকাম টেক্সট', 'row' => 8, 'class' => 'lsf bn', 'useOld' => $data['homeHighlights']?->getJson('props', $key . '_bn')])
                         </div>
                     @endforeach
                 </div>
