@@ -1175,6 +1175,7 @@ nav[aria-label="breadcrumb"] .breadcrumb-item.active {
     .book-gallery-row {
         display: grid !important;
         grid-template-columns: 1fr 1fr;
+        align-items: start;
         gap: 12px;
     }
 
@@ -1189,7 +1190,7 @@ nav[aria-label="breadcrumb"] .breadcrumb-item.active {
     .book-gallery-card {
         display: block !important;
         margin: 0;
-        height: 100%;
+        height: auto;
         background: #f5f5f5f2;
         border-radius: 6px;
         padding: 10px;
