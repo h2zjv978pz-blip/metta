@@ -1030,7 +1030,7 @@ nav[aria-label="breadcrumb"] .breadcrumb-item.active {
         padding: 0;
         margin-bottom: 0;
         position: relative;
-        height: 180px;
+        height: 210px;
         overflow: hidden;
         border-radius: 4px;
     }
@@ -1053,21 +1053,33 @@ nav[aria-label="breadcrumb"] .breadcrumb-item.active {
         right: 0;
         bottom: 0;
         height: auto;
+        max-height: 60%;
         padding: 8px 10px;
         margin: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0));
         z-index: 2;
+        overflow: hidden;
     }
 
     #buddhist_sites .bdd-sites-text a {
         color: #fff;
-        font-size: 13px;
-        line-height: 1.25;
+        font-size: 12.5px;
+        line-height: 1.3;
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     #buddhist_sites .bdd-sites-location {
         color: #eee;
         font-size: 10px;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     #buddhist_sites .bdd-sites-text p {
