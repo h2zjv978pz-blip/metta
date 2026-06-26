@@ -23,9 +23,9 @@
                 <span>{{ \App\Helpers\Utils::lingual(['Research & Publication', 'গবেষণা ও প্রকাশনা']) }}</span>
                 <h2>{{ \App\Helpers\Utils::lingual(['OUR RESEARCH & PUBLICATIONS', 'আমাদের গবেষণা ও প্রকাশনা']) }}</h2>
             </div>
-            <div class="row">
+            <div class="row blog-gallery-row">
                 @foreach($blogs as $blog)
-                    <div class="col-xl-3 col-lg-4 mb-4">
+                    <div class="col-6 col-xl-3 col-lg-4 mb-4 blog-gallery-item">
                         <a href="{{ route('blogs.show', \Illuminate\Support\Str::slug($blog->props['title'] ?? '') ?: $blog->id) }}" class="blog">
                             <div class="blog-box">
                                 <div class="zoom"><img src="{{ $blog->getFeatureImageUrl() }}" loading="lazy" alt="{{ $blog->prop('title') }}"></div>

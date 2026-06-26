@@ -19,9 +19,9 @@
                 <h2>THE TEACHINGS OF LORD BUDDHA</h2>
             </div>
 
-            <div class="row pd-top">
+            <div class="row pd-top teach-blog-gallery-row">
                 @foreach($teachings as $teaching)
-                    <div class="col-lg-4 mb-4">
+                    <div class="col-6 col-lg-4 mb-4 teach-blog-gallery-item">
                         <a href="{{ route('teachings.show', \Illuminate\Support\Str::slug($teaching->props['title'] ?? '') ?: $teaching->id) }}" class="teach-blog">
                             <div class="teach-blog-box">
                                 <div class="zoom"><img src="{{ $teaching->getFeatureImageUrl() }}" loading="lazy" alt="{{ $teaching->prop('title') }}"></div>

@@ -19,11 +19,11 @@
                 <h2>{{ strtoupper(in_array(Request::query('category'), \App\Repositories\BookRepository::$categories) ? Request::query('category') : 'BOOKS COLLECTION') }}</h2>
             </div>
 
-            <div class="row">
+            <div class="row book-gallery-row">
                 @foreach($books as $book)
-                    <div class="col-xl-6 col-sm-12">
-                        <div class="row book-bg">
-                            <div class="col-lg-2 col-md-4 ">
+                    <div class="col-6 col-xl-6 col-sm-12 book-gallery-item">
+                        <div class="row book-bg book-gallery-card">
+                            <div class="col-lg-2 col-md-4 book-gallery-img-col">
                                 <div class="books-img">
                                     <img src="{{ $book->getFeatureImageUrl() }}" loading="lazy" alt="{{ $book->prop('title') }}">
                                     <div class="books-icons mt-2">
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-10 col-md-8 mt-4 mt-md-0">
+                            <div class="col-lg-10 col-md-8 mt-4 mt-md-0 book-gallery-info">
                                 <h4 class="book-name">{{ $book->prop('title') }}</h4>
                                 <div class="books-info">
                                     <span>{{ $book->prop('author') }}</span>
