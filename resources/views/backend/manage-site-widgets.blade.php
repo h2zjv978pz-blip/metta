@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-5">
                                 <label class="form-control-label">URL</label>
-                                <input type="text" name="links[0][url]" class="form-control" value="{{ route('library.videos') }}">
+                                <input type="text" name="links[0][url]" class="form-control" value="{{ route('library.videos', ['locale' => 'en']) }}">
                             </div>
                             <div class="col-md-1">
                                 <button type="button" class="btn btn-outline-danger remove-quick-link-row"><i class="fa fa-trash"></i></button>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-md-5">
                                 <label class="form-control-label">URL</label>
-                                <input type="text" name="links[1][url]" class="form-control" value="{{ route('library.books') }}">
+                                <input type="text" name="links[1][url]" class="form-control" value="{{ route('library.books', ['locale' => 'en']) }}">
                             </div>
                             <div class="col-md-1">
                                 <button type="button" class="btn btn-outline-danger remove-quick-link-row"><i class="fa fa-trash"></i></button>
