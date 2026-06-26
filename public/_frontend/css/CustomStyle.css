@@ -489,6 +489,40 @@ padding: 5px;
 .my-btn-div {
     margin-top: 30px;
 }
+
+.hero-quick-links {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.hero-quick-link-btn {
+    padding: 8px 18px;
+    border-radius: 30px;
+    border: 1.5px solid #fff;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(2px);
+    transition: .3s;
+}
+.hero-quick-link-btn:hover {
+    background: var(--color-01);
+    border-color: var(--color-01);
+    color: #fff;
+}
+@media (max-width: 767px) {
+    .hero-quick-links {
+        margin-top: 12px;
+    }
+    .hero-quick-link-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+}
 .my-btn {
     padding: 10px 20px;
     border-radius: 0;

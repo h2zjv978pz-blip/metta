@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('_frontend/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('_frontend/vendor/fotorama-4.6.4/fotorama.css') }}">
-    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.024">
+    <link rel="stylesheet" href="{{ asset('_frontend/css/CustomStyle.css') }}?v=1.025">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('_common/img/favicon/apple-touch-icon.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-16x16.png') }}?v=1.001">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('_common/img/favicon/favicon-32x32.png') }}?v=1.001">
@@ -613,6 +613,108 @@
         return { play: play };
     })();
 </script>
+
+@php
+    $waNumber = $gData['socialLinks']?->prop('sLinkWhatsapp');
+    $waFloatingEnabled = $gData['socialLinks'] ? (bool) $gData['socialLinks']->prop('whatsapp_floating_enabled', true) : true;
+    $zenMusic = $gData['zenMusic'] ?? null;
+@endphp
+
+@if($waNumber && $waFloatingEnabled)
+    <a href="{{ $waNumber }}" target="_blank" rel="noopener" class="metta-fab metta-fab-whatsapp" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+@endif
+
+@if(($zenMusic['enabled'] ?? false) && !empty($zenMusic['file']))
+    <button type="button" id="metta-zen-music-btn" class="metta-fab metta-fab-zen" aria-label="{{ \App\Helpers\Utils::lingual([$zenMusic['label'], $zenMusic['label_bn']]) }}" title="{{ \App\Helpers\Utils::lingual([$zenMusic['label'], $zenMusic['label_bn']]) }}">
+        <i class="fa-solid fa-music"></i>
+    </button>
+    <audio id="metta-zen-music-el" loop preload="none" src="{{ asset('storage/audio/' . $zenMusic['file']) }}"></audio>
+@endif
+
+<style>
+    .metta-fab {
+        position: fixed;
+        right: 18px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #fff;
+        z-index: 9500;
+        box-shadow: 0 3px 10px rgba(0,0,0,.25);
+        border: none;
+        cursor: pointer;
+        transition: transform .2s ease;
+    }
+    .metta-fab:hover {
+        transform: scale(1.08);
+        color: #fff;
+    }
+    .metta-fab-whatsapp {
+        bottom: 90px;
+        background: #25D366;
+    }
+    .metta-fab-zen {
+        bottom: 150px;
+        background: #743233;
+    }
+    .metta-fab-zen.is-playing {
+        animation: metta-zen-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes metta-zen-pulse {
+        0%, 100% { box-shadow: 0 3px 10px rgba(116,50,51,.35); }
+        50% { box-shadow: 0 3px 18px rgba(116,50,51,.7); }
+    }
+</style>
+
+@if(($zenMusic['enabled'] ?? false) && !empty($zenMusic['file']))
+    <script>
+        (function () {
+            var STORAGE_KEY = 'metta_zen_music_playing';
+            var btn = document.getElementById('metta-zen-music-btn');
+            var audio = document.getElementById('metta-zen-music-el');
+            if (!btn || !audio) return;
+
+            audio.volume = {{ (float) ($zenMusic['volume'] ?? 0.4) }};
+
+            function setState(playing) {
+                btn.classList.toggle('is-playing', playing);
+                btn.innerHTML = playing ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-music"></i>';
+            }
+
+            btn.addEventListener('click', function () {
+                if (audio.paused) {
+                    audio.play().then(function () {
+                        localStorage.setItem(STORAGE_KEY, '1');
+                    }).catch(function () {});
+                } else {
+                    audio.pause();
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+            });
+
+            audio.addEventListener('play', function () { setState(true); });
+            audio.addEventListener('pause', function () { setState(false); });
+
+            // Resume only on an explicit user gesture (first tap/click anywhere),
+            // never auto-play immediately on page load — respects browser autoplay policy.
+            if (localStorage.getItem(STORAGE_KEY) === '1') {
+                var resumeOnce = function () {
+                    audio.play().catch(function () {});
+                    document.removeEventListener('click', resumeOnce);
+                    document.removeEventListener('touchstart', resumeOnce);
+                };
+                document.addEventListener('click', resumeOnce, { once: true });
+                document.addEventListener('touchstart', resumeOnce, { once: true });
+            }
+        })();
+    </script>
+@endif
 
 </body>
 

@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         $gData['homeSectionOrder'] = $repo->getHomeSectionOrder();
         $gData['buddhistSitesDisplay'] = $repo->getBuddhistSitesDisplay();
         $gData['splashScreen'] = $repo->getSplashScreen();
+        $gData['quickLinks']   = $repo->getQuickLinks();
+        $gData['zenMusic']     = $repo->getZenMusic();
 
         View::share('gData', $gData);
     }

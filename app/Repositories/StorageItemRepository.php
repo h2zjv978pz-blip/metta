@@ -457,4 +457,90 @@ class StorageItemRepository
         ]);
         $ss->save();
     }
+
+    public function getQuickLinks()
+    {
+        $ql = StorageItem::ofType('quick_links')->first();
+
+        return [
+            'enabled' => $ql ? (bool) $ql->prop('enabled', true) : true,
+            'links'   => $ql?->prop('links') ?: [],
+        ];
+    }
+
+    public function saveQuickLinks($request)
+    {
+        $ql = StorageItem::firstOrNew([
+            'type'  => 'quick_links'
+        ]);
+
+        $links = [];
+
+        foreach ($request->input('links', []) as $link) {
+            if (!empty($link['label']) && !empty($link['url'])) {
+                $links[] = [
+                    'label'    => $link['label'],
+                    'label_bn' => $link['label_bn'] ?? '',
+                    'url'      => $link['url'],
+                ];
+            }
+        }
+
+        $ql->setProps([
+            'enabled' => $request->boolean('enabled'),
+            'links'   => $links,
+        ]);
+        $ql->save();
+    }
+
+    public function getZenMusic()
+    {
+        $zm = StorageItem::ofType('zen_music')->first();
+
+        return [
+            'enabled'  => $zm ? (bool) $zm->prop('enabled') : false,
+            'file'     => $zm?->prop('file'),
+            'label'    => $zm?->prop('label') ?: 'Zen Music',
+            'label_bn' => $zm?->prop('label_bn') ?: 'জেন সংগীত',
+            'volume'   => $zm?->prop('volume') ?: 0.4,
+        ];
+    }
+
+    public function saveZenMusic($request)
+    {
+        $zm = StorageItem::firstOrNew([
+            'type'  => 'zen_music'
+        ]);
+
+        $file = $zm->prop('file');
+
+        if ($request->file('zen_audio')) {
+            $this->deleteAudioIfExists($file);
+            $file = $this->saveAudio($request, 'zen_audio', 'zen_music');
+        } elseif ($request->boolean('remove_audio')) {
+            $this->deleteAudioIfExists($file);
+            $file = null;
+        }
+
+        $zm->setProps([
+            'enabled'  => $request->boolean('enabled'),
+            'file'     => $file,
+            'label'    => $request->label ?: 'Zen Music',
+            'label_bn' => $request->label_bn ?: 'জেন সংগীত',
+            'volume'   => !empty($request->volume) ? (float) $request->volume : 0.4,
+        ]);
+        $zm->save();
+    }
+
+    public function saveWhatsAppFloatingEnabled($request)
+    {
+        $ci = StorageItem::firstOrNew([
+            'type'  => 'social_links'
+        ]);
+
+        $ci->setProps([
+            'whatsapp_floating_enabled' => $request->boolean('whatsapp_floating_enabled'),
+        ]);
+        $ci->save();
+    }
 }

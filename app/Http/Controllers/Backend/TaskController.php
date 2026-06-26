@@ -138,6 +138,25 @@ class TaskController extends Controller
             case 'save-splash-screen':
                 $repo->saveSplashScreen($request);
                 return redirect()->route('backend.tasks', ['task' => 'manage-splash-screen']);
+
+            case 'manage-site-widgets':
+                $data['quickLinks']  = $repo->getQuickLinks();
+                $data['zenMusic']    = $repo->getZenMusic();
+                $data['socialLinks'] = $repo->getSocialLinks();
+
+                return view('backend.manage-site-widgets', compact('data'));
+
+            case 'save-quick-links':
+                $repo->saveQuickLinks($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-site-widgets']);
+
+            case 'save-zen-music':
+                $repo->saveZenMusic($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-site-widgets']);
+
+            case 'save-whatsapp-floating':
+                $repo->saveWhatsAppFloatingEnabled($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-site-widgets']);
         }
     }
 }

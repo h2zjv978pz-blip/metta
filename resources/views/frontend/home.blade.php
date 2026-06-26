@@ -25,6 +25,14 @@
                                     <div class="animate__animated animate__fadeInUp my-btn-div">
                                         <a href="{{ $homeSlide->prop('link', route('about-us')) }}" class="my-btn btn-02">Read More</a>
                                     </div>
+
+                                    @if(($gData['quickLinks']['enabled'] ?? false) && !empty($gData['quickLinks']['links']))
+                                        <div class="animate__animated animate__fadeInUp hero-quick-links">
+                                            @foreach($gData['quickLinks']['links'] as $qLink)
+                                                <a href="{{ $qLink['url'] }}" class="hero-quick-link-btn">{{ \App\Helpers\Utils::lingual([$qLink['label'], $qLink['label_bn'] ?: $qLink['label']]) }}</a>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
