@@ -20,7 +20,8 @@
                         $heroAlignClass = 'hero-align-' . ($heroSettings['mobile_align'] ?? 'center');
                     @endphp
                     @foreach($data['homeSlides'] as $homeSlide)
-                        <div class="carousel-item {{ $loop->index === 0 ? 'active' : '' }} slide-contain" data-bs-interval="4500" style="background-image: url('{{ $homeSlide->getImageUrl('image') }}')">
+                        <div class="carousel-item {{ $loop->index === 0 ? 'active' : '' }} slide-contain" data-bs-interval="7000">
+                            <div class="slide-bg-img" style="background-image: url('{{ $homeSlide->getImageUrl('image') }}')"></div>
                             <div class="carousel-caption d-md-block">
                                 <div class="slide-contain-text {{ $heroAlignClass }}">
                                     <h2 class="animate__animated animate__fadeInDown">{{ $heroHeading }}</h2>
