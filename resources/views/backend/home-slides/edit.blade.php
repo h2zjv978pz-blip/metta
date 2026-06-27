@@ -33,11 +33,22 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label">Heading Alignment</label>
+                                    <label class="form-control-label">Heading Alignment (horizontal)</label>
                                     <select name="heading_align" class="form-control">
                                         <option value="" {{ !$home_slide->prop('heading_align') ? 'selected' : '' }}>Default</option>
                                         @foreach(['left' => 'Left', 'center' => 'Center', 'right' => 'Right'] as $key => $label)
                                             <option value="{{ $key }}" {{ $home_slide->prop('heading_align') == $key ? 'selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Heading Position (vertical)</label>
+                                    <select name="heading_valign" class="form-control">
+                                        <option value="" {{ !$home_slide->prop('heading_valign') ? 'selected' : '' }}>Default</option>
+                                        @foreach(['top' => 'Top', 'middle' => 'Middle', 'bottom' => 'Bottom'] as $key => $label)
+                                            <option value="{{ $key }}" {{ $home_slide->prop('heading_valign') == $key ? 'selected' : '' }}>{{ $label }}</option>
                                         @endforeach
                                     </select>
                                 </div>
