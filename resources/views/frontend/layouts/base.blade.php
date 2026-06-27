@@ -630,7 +630,7 @@
     <button type="button" id="metta-zen-music-btn" class="metta-fab metta-fab-zen" aria-label="{{ \App\Helpers\Utils::lingual([$zenMusic['label'], $zenMusic['label_bn']]) }}" title="{{ \App\Helpers\Utils::lingual([$zenMusic['label'], $zenMusic['label_bn']]) }}">
         <i class="fa-solid fa-music"></i>
     </button>
-    <audio id="metta-zen-music-el" loop preload="none" src="{{ asset('storage/audio/' . $zenMusic['file']) }}"></audio>
+    <audio id="metta-zen-music-el" loop preload="metadata" src="{{ asset('storage/audio/' . $zenMusic['file']) }}"></audio>
 @endif
 
 <style>
