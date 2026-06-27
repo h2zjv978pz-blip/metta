@@ -53,8 +53,36 @@ class StorageItemRepository
 
     public function getHomeSlides()
     {
-        return StorageItem::ofType('home_slides')
-            ->get();
+        $slides = StorageItem::ofType('home_slides')->get();
+        $order = $this->getHomeSlidesOrder();
+
+        if (empty($order)) {
+            return $slides;
+        }
+
+        return $slides->sortBy(function ($slide) use ($order) {
+            $pos = array_search($slide->id, $order);
+            return $pos === false ? count($order) + $slide->id : $pos;
+        })->values();
+    }
+
+    public function getHomeSlidesOrder()
+    {
+        $so = StorageItem::ofType('home_slides_order')->first();
+
+        return $so?->prop('order') ?: [];
+    }
+
+    public function saveHomeSlidesOrder($request)
+    {
+        $so = StorageItem::firstOrNew([
+            'type'  => 'home_slides_order'
+        ]);
+
+        $so->setProps([
+            'order' => array_values(array_filter(array_map('intval', explode(',', $request->slide_order ?? '')))),
+        ]);
+        $so->save();
     }
 
     public function storeHomeSlide($request)

@@ -119,6 +119,36 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
+    <div class="card" id="home-slides-order">
+        <div class="card-header">
+            <div class="card-title">Reorder Slides</div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Drag slides to set the order they appear in the homepage slideshow, then submit.</p>
+
+            <form action="{{ route('backend.tasks', ['task' => 'save-home-slides-order']) }}" method="POST">
+                @csrf
+                <input type="hidden" name="slide_order" id="slide-order-input" value="{{ $data['homeSlides']->pluck('id')->implode(',') }}">
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-12">
+                        <ul id="slide-order-list" class="list-group">
+                            @foreach($data['homeSlides'] as $homeSlide)
+                                <li class="list-group-item d-flex align-items-center" draggable="true" data-key="{{ $homeSlide->id }}" style="cursor: move;">
+                                    <i class="fa fa-bars me-3"></i>
+                                    <img src="{{ asset("storage/img/{$homeSlide->prop('image')}") }}" alt="Slide Image" style="max-height: 50px; margin-right: 12px;">
+                                    <span>{{ $homeSlide->prop('heading') ?: $homeSlide->prop('title', 'Slide #' . $homeSlide->id) }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        @include('backend.partials.form.button', ['label' => 'Save Order'])
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="card" id="achievement-counters">
         <div class="card-header">
             <div class="card-title">Highlights</div>
@@ -142,4 +172,40 @@
             </form>
         </div>
     </div>
+
+    <script>
+        (function () {
+            var list = document.getElementById('slide-order-list');
+            var input = document.getElementById('slide-order-input');
+            var dragging = null;
+
+            if (!list) return;
+
+            function updateInput() {
+                var keys = Array.from(list.querySelectorAll('li')).map(function (li) {
+                    return li.dataset.key;
+                });
+                input.value = keys.join(',');
+            }
+
+            list.querySelectorAll('li').forEach(function (li) {
+                li.addEventListener('dragstart', function () {
+                    dragging = li;
+                    li.classList.add('opacity-50');
+                });
+                li.addEventListener('dragend', function () {
+                    dragging = null;
+                    li.classList.remove('opacity-50');
+                    updateInput();
+                });
+                li.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    if (!dragging || dragging === li) return;
+                    var rect = li.getBoundingClientRect();
+                    var before = (e.clientY - rect.top) < rect.height / 2;
+                    list.insertBefore(dragging, before ? li : li.nextSibling);
+                });
+            });
+        })();
+    </script>
 @endsection

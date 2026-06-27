@@ -30,6 +30,10 @@ class TaskController extends Controller
                 $repo->saveHeroSettings($request);
                 return redirect()->route('backend.tasks', ['task' => 'manage-home', '#hero-settings']);
 
+            case 'save-home-slides-order':
+                $repo->saveHomeSlidesOrder($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-home', '#home-slides']);
+
             case 'create-home-slide':
                 return view('backend.home-slides.create');
 
