@@ -597,6 +597,7 @@ class StorageItemRepository
             'read_more_label_bn' => $hs?->prop('read_more_label_bn') ?: 'আরও পড়ুন',
             'read_more_link'     => $hs?->prop('read_more_link') ?: null,
             'mobile_align'       => $hs?->prop('mobile_align') ?: 'center',
+            'vertical_position'  => $hs?->prop('vertical_position') ?: 38,
         ];
     }
 
@@ -613,6 +614,7 @@ class StorageItemRepository
             'read_more_label_bn' => $request->read_more_label_bn ?: null,
             'read_more_link'     => $request->read_more_link ?: null,
             'mobile_align'       => in_array($request->mobile_align, ['left', 'center', 'right']) ? $request->mobile_align : 'center',
+            'vertical_position'  => !empty($request->vertical_position) ? (int) $request->vertical_position : 38,
         ]);
         $hs->save();
     }

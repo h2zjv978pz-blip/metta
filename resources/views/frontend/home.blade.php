@@ -25,10 +25,11 @@
                             $slideAlignClass = 'hero-align-' . $slideAlign;
                             $slideValign = $homeSlide->prop('heading_valign');
                             $slideValignClass = $slideValign && $slideValign != 'middle' ? 'valign-' . $slideValign : '';
+                            $captionStyle = $slideValignClass ? '' : 'top: ' . ($heroSettings['vertical_position'] ?? 38) . '%;';
                         @endphp
                         <div class="carousel-item {{ $loop->index === 0 ? 'active' : '' }} slide-contain" data-bs-interval="7000">
                             <div class="slide-bg-img" style="background-image: url('{{ $homeSlide->getImageUrl('image') }}')"></div>
-                            <div class="carousel-caption d-md-block {{ $slideValignClass }}">
+                            <div class="carousel-caption d-md-block {{ $slideValignClass }}" style="{{ $captionStyle }}">
                                 <div class="slide-contain-text {{ $slideAlignClass }}">
                                     @if($homeSlide->prop('heading'))
                                         @php

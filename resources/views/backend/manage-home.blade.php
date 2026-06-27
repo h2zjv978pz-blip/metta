@@ -37,6 +37,13 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label">Vertical Position of Hero Text (%)</label>
+                    <p class="text-muted" style="font-size: 12px;">Lower number = higher up, higher number = lower down. Applies to all slides unless a slide's own Heading Position (Top/Bottom) overrides it.</p>
+                    <input type="range" class="form-range" name="vertical_position" id="hero-vpos" min="10" max="65" value="{{ $hero['vertical_position'] }}" oninput="document.getElementById('hero-vpos-output').innerText = this.value + '%'">
+                    <span id="hero-vpos-output">{{ $hero['vertical_position'] }}%</span>
+                </div>
+
                 @include('backend.partials.form.button', ['label' => 'Submit'])
             </form>
         </div>
