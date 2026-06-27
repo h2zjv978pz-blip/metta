@@ -1,13 +1,15 @@
 @extends('frontend.layouts.base')
 
-@section('page-title', 'About Us')
+@php $au = $data['aboutUs']; @endphp
+
+@section('page-title', \App\Helpers\Utils::lingual([$au['page_title'], $au['page_title_bn']]))
 
 @section('main-content')
     <section id="breadcrumb">
         <div class="breadcrumb-img" style="background-image: url('{{ asset('_common/img/v-thumb-05.jpg') }}')">
             <div class="breadcrumb-text-wrap">
-                <span>About</span>
-                <h2>About Us</h2>
+                <span>{{ \App\Helpers\Utils::lingual(['About', 'সম্পর্কে']) }}</span>
+                <h2>{{ \App\Helpers\Utils::lingual([$au['page_title'], $au['page_title_bn']]) }}</h2>
             </div>
         </div>
     </section>
@@ -15,54 +17,24 @@
     <section class="about-us pd-top pd-bottom">
         <div class="container">
             <div class="">
-                <h2>About Us</h2>
-                <p>
-                    Welcome to <strong>Metta</strong> digital platform , a sanctuary of wisdom and serenity dedicated to exploring the profound
-                    teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of
-                    enlightenment through captivating documentaries.
-                </p>
+                <h2>{{ \App\Helpers\Utils::lingual([$au['page_title'], $au['page_title_bn']]) }}</h2>
+                <p>{!! nl2br(e(\App\Helpers\Utils::lingual([$au['intro_body'], $au['intro_body_bn']]))) !!}</p>
             </div>
             <div class="mt-5">
-                <h4>Our Mission</h4>
-                <p>
-                    At Metta, we embark on a journey to share the timeless teachings of Buddha that illuminate the path to inner
-                    peace, compassion, and mindfulness. Our mission is to bring the profound wisdom of Buddhism to the digital realm,
-                    making it accessible to seekers and enthusiasts worldwide.
-                </p>
+                <h4>{{ \App\Helpers\Utils::lingual(['Our Mission', 'আমাদের লক্ষ্য']) }}</h4>
+                <p>{!! nl2br(e(\App\Helpers\Utils::lingual([$au['mission_body'], $au['mission_body_bn']]))) !!}</p>
             </div>
             <div class="mt-5">
-                <h4>Unveiling Sacred Sites</h4>
-                <p>
-                    Embark on a virtual pilgrimage with us as we uncover the mystique surrounding sacred Buddhist sites. From the
-                    serene landscapes of Bodh Gaya, where Siddhartha Gautama attained enlightenment, to the ancient ruins of
-                    Nalanda, witness the echoes of ancient wisdom that resonate through these hallowed grounds.
-                </p>
+                <h4>{{ \App\Helpers\Utils::lingual(['Unveiling Sacred Sites', 'পবিত্র স্থান উদ্ঘাটন']) }}</h4>
+                <p>{!! nl2br(e(\App\Helpers\Utils::lingual([$au['sites_body'], $au['sites_body_bn']]))) !!}</p>
             </div>
             <div class="mt-5">
-                <h4>Illuminating Buddha's Teachings</h4>
-                <p>
-                    Dive deep into the ocean of Buddha's teachings, exploring the Dharma that forms the foundation of Buddhism.
-                    Through insightful articles, discussions, and reflections, we strive to unravel the profound messages that continue to
-                    guide seekers on the path to awakening.
-                </p>
+                <h4>{{ \App\Helpers\Utils::lingual(["Illuminating Buddha's Teachings", 'বুদ্ধের শিক্ষার আলোকপাত']) }}</h4>
+                <p>{!! nl2br(e(\App\Helpers\Utils::lingual([$au['teachings_body'], $au['teachings_body_bn']]))) !!}</p>
             </div>
             <div class="my-5">
-                <h4>Explorations</h4>
-                <p>
-                    Enhancing our journey are captivating documentaries that weave together the threads of history, spirituality, and
-                    culture. Immerse yourself in visual narratives that bring to life the stories of great masters, the evolution of Buddhist
-                    philosophy, and the enduring legacy of this ancient tradition.
-                </p>
-                <p>
-                    We invite you to be a part of our community, where the exchange of ideas and experiences enriches our
-                    collective understanding. Whether you're a seasoned practitioner or a curious soul taking the rst steps on the
-                    Eightfold Path, your attendance is a space for everyone seeking inspiration and enlightenment.
-                </p>
-                <p>
-                    Embark on this transformative journey with us as we explore the intersections of Buddhist wisdom, sacred sites, and
-                    the cinematic artistry that brings it all to life.
-                </p>
-
+                <h4>{{ \App\Helpers\Utils::lingual(['Explorations', 'অন্বেষণ']) }}</h4>
+                <p>{!! nl2br(e(\App\Helpers\Utils::lingual([$au['explorations_body'], $au['explorations_body_bn']]))) !!}</p>
             </div>
 
 

@@ -543,4 +543,90 @@ class StorageItemRepository
         ]);
         $ci->save();
     }
+
+    public function getHeroSettings()
+    {
+        $hs = StorageItem::ofType('hero_settings')->first();
+
+        return [
+            'heading'            => $hs?->prop('heading') ?: 'Metta',
+            'heading_bn'         => $hs?->prop('heading_bn') ?: ($hs?->prop('heading') ?: 'Metta'),
+            'read_more_label'    => $hs?->prop('read_more_label') ?: 'Read More',
+            'read_more_label_bn' => $hs?->prop('read_more_label_bn') ?: 'আরও পড়ুন',
+            'read_more_link'     => $hs?->prop('read_more_link') ?: null,
+            'mobile_align'       => $hs?->prop('mobile_align') ?: 'center',
+        ];
+    }
+
+    public function saveHeroSettings($request)
+    {
+        $hs = StorageItem::firstOrNew([
+            'type'  => 'hero_settings'
+        ]);
+
+        $hs->setProps([
+            'heading'            => $request->heading ?: 'Metta',
+            'heading_bn'         => $request->heading_bn ?: null,
+            'read_more_label'    => $request->read_more_label ?: 'Read More',
+            'read_more_label_bn' => $request->read_more_label_bn ?: null,
+            'read_more_link'     => $request->read_more_link ?: null,
+            'mobile_align'       => in_array($request->mobile_align, ['left', 'center', 'right']) ? $request->mobile_align : 'center',
+        ]);
+        $hs->save();
+    }
+
+    public function getAboutUs()
+    {
+        $au = StorageItem::ofType('about_us_page')->first();
+
+        $defaults = [
+            'page_title'        => ['About Us', 'আমাদের সম্পর্কে'],
+            'intro_body'        => [
+                "Welcome to Metta digital platform, a sanctuary of wisdom and serenity dedicated to exploring the profound teachings of Buddha, unraveling the sacred stories embedded in Buddhist sites, and capturing the essence of enlightenment through captivating documentaries.",
+                "মেত্তা ডিজিটাল প্ল্যাটফর্মে স্বাগতম, প্রজ্ঞা ও প্রশান্তির এক অভয়ারণ্য, যা বুদ্ধের গভীর শিক্ষা অন্বেষণ, বৌদ্ধ স্থানগুলোর পবিত্র কাহিনী উদ্ঘাটন এবং চিত্তাকর্ষক ডকুমেন্টারির মাধ্যমে জ্ঞানার্জনের সারমর্ম ধারণ করতে নিবেদিত।",
+            ],
+            'mission_body'      => [
+                "At Metta, we embark on a journey to share the timeless teachings of Buddha that illuminate the path to inner peace, compassion, and mindfulness. Our mission is to bring the profound wisdom of Buddhism to the digital realm, making it accessible to seekers and enthusiasts worldwide.",
+                "মেত্তায়, আমরা বুদ্ধের চিরন্তন শিক্ষা ভাগ করে নেওয়ার যাত্রা শুরু করি, যা অন্তরের শান্তি, করুণা এবং সচেতনতার পথ আলোকিত করে। আমাদের লক্ষ্য হলো বৌদ্ধধর্মের গভীর জ্ঞানকে ডিজিটাল জগতে এনে বিশ্বব্যাপী অনুসন্ধানকারী ও উৎসাহীদের জন্য সহজলভ্য করা।",
+            ],
+            'sites_body'        => [
+                "Embark on a virtual pilgrimage with us as we uncover the mystique surrounding sacred Buddhist sites. From the serene landscapes of Bodh Gaya, where Siddhartha Gautama attained enlightenment, to the ancient ruins of Nalanda, witness the echoes of ancient wisdom that resonate through these hallowed grounds.",
+                "আমাদের সাথে এক ভার্চুয়াল তীর্থযাত্রায় যোগ দিন যেখানে আমরা পবিত্র বৌদ্ধ স্থানগুলোর রহস্য উদ্ঘাটন করি। বোধগয়ার শান্ত নিসর্গ থেকে, যেখানে সিদ্ধার্থ গৌতম জ্ঞান লাভ করেছিলেন, নালন্দার প্রাচীন ধ্বংসাবশেষ পর্যন্ত, এই পবিত্র ভূমিতে অনুরণিত প্রাচীন প্রজ্ঞার প্রতিধ্বনি প্রত্যক্ষ করুন।",
+            ],
+            'teachings_body'    => [
+                "Dive deep into the ocean of Buddha's teachings, exploring the Dharma that forms the foundation of Buddhism. Through insightful articles, discussions, and reflections, we strive to unravel the profound messages that continue to guide seekers on the path to awakening.",
+                "বুদ্ধের শিক্ষার সমুদ্রে গভীরভাবে ডুব দিন, বৌদ্ধধর্মের ভিত্তি গঠনকারী ধর্ম অন্বেষণ করুন। অন্তর্দৃষ্টিপূর্ণ প্রবন্ধ, আলোচনা এবং প্রতিফলনের মাধ্যমে, আমরা সেই গভীর বার্তাগুলো উদ্ঘাটনের চেষ্টা করি যা অনুসন্ধানকারীদের জাগরণের পথে পরিচালিত করে চলেছে।",
+            ],
+            'explorations_body' => [
+                "Enhancing our journey are captivating documentaries that weave together the threads of history, spirituality, and culture. Immerse yourself in visual narratives that bring to life the stories of great masters, the evolution of Buddhist philosophy, and the enduring legacy of this ancient tradition.\n\nWe invite you to be a part of our community, where the exchange of ideas and experiences enriches our collective understanding. Whether you're a seasoned practitioner or a curious soul taking the first steps on the Eightfold Path, your attendance is a space for everyone seeking inspiration and enlightenment.\n\nEmbark on this transformative journey with us as we explore the intersections of Buddhist wisdom, sacred sites, and the cinematic artistry that brings it all to life.",
+                "আমাদের যাত্রাকে সমৃদ্ধ করে মুগ্ধকর ডকুমেন্টারিগুলো যা ইতিহাস, আত্মিকতা এবং সংস্কৃতির সূত্রগুলোকে একসাথে বুনে দেয়। মহান গুরুদের কাহিনী, বৌদ্ধ দর্শনের বিকাশ এবং এই প্রাচীন ঐতিহ্যের চিরস্থায়ী উত্তরাধিকারকে জীবন্ত করে তোলা দৃশ্যপটে নিজেকে নিমজ্জিত করুন।\n\nআমরা আপনাকে আমাদের সম্প্রদায়ের অংশ হতে আহ্বান জানাই, যেখানে ধারণা ও অভিজ্ঞতার বিনিময় আমাদের সম্মিলিত উপলব্ধিকে সমৃদ্ধ করে।\n\nবৌদ্ধ প্রজ্ঞা, পবিত্র স্থান এবং চলচ্চিত্রের শিল্পকলার সংযোগস্থল অন্বেষণ করতে আমাদের সাথে এই রূপান্তরমূলক যাত্রা শুরু করুন।",
+            ],
+        ];
+
+        $result = [];
+
+        foreach ($defaults as $key => [$en, $bn]) {
+            $result[$key] = $au?->prop($key) ?: $en;
+            $result[$key . '_bn'] = $au?->prop($key . '_bn') ?: $bn;
+        }
+
+        return $result;
+    }
+
+    public function saveAboutUs($request)
+    {
+        $au = StorageItem::firstOrNew([
+            'type'  => 'about_us_page'
+        ]);
+
+        $props = [];
+
+        foreach (['page_title', 'intro_body', 'mission_body', 'sites_body', 'teachings_body', 'explorations_body'] as $key) {
+            $props[$key] = $request->input($key) ?: null;
+            $props[$key . '_bn'] = $request->input($key . '_bn') ?: null;
+        }
+
+        $au->setProps($props);
+        $au->save();
+    }
 }

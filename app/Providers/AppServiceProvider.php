@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $gData['splashScreen'] = $repo->getSplashScreen();
         $gData['quickLinks']   = $repo->getQuickLinks();
         $gData['zenMusic']     = $repo->getZenMusic();
+        $gData['heroSettings'] = $repo->getHeroSettings();
 
         View::share('gData', $gData);
     }

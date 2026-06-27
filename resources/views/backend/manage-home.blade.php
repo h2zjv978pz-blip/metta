@@ -3,6 +3,45 @@
 @section('page-title', 'Home Page Contents')
 
 @section('main-content')
+    @php $hero = $data['heroSettings']; @endphp
+    <div class="card" id="hero-settings">
+        <div class="card-header">
+            <div class="card-title">Hero Section</div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Controls the main "Metta" heading, the "Read More" button, and mobile text alignment shown on every homepage slide.</p>
+
+            @include('backend.partials.lsf-toggle')
+
+            <form action="{{ route('backend.tasks', ['task' => 'save-hero-settings']) }}" method="POST">
+                @csrf
+
+                @include('backend.partials.form.input', ['name' => 'heading', 'class' => 'lsf en', 'label' => 'Main Heading (English)', 'useOld' => $hero['heading']])
+                @include('backend.partials.form.input', ['name' => 'heading_bn', 'class' => 'lsf bn', 'label' => 'Main Heading (বাংলা)', 'useOld' => $hero['heading_bn']])
+
+                @include('backend.partials.form.input', ['name' => 'read_more_label', 'class' => 'lsf en', 'label' => '"Read More" Button Label (English)', 'useOld' => $hero['read_more_label']])
+                @include('backend.partials.form.input', ['name' => 'read_more_label_bn', 'class' => 'lsf bn', 'label' => '"Read More" Button Label (বাংলা)', 'useOld' => $hero['read_more_label_bn']])
+
+                <div class="form-group">
+                    <label class="form-control-label">"Read More" Button Link</label>
+                    <p class="text-muted" style="font-size: 12px;">Leave empty to send visitors to the Buddhist Sites page. Individual slides can still override this with their own link.</p>
+                    <input type="text" name="read_more_link" class="form-control" value="{{ $hero['read_more_link'] }}" placeholder="{{ route('buddhist-sites.index', ['locale' => 'en']) }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label">Text Alignment on Mobile</label>
+                    <select name="mobile_align" class="form-control">
+                        @foreach(['left' => 'Left', 'center' => 'Center', 'right' => 'Right'] as $key => $label)
+                            <option value="{{ $key }}" {{ $hero['mobile_align'] == $key ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                @include('backend.partials.form.button', ['label' => 'Submit'])
+            </form>
+        </div>
+    </div>
+
     <div class="card" id="home-slides">
         <div class="card-header">
             <div class="card-title">Slideshow</div>

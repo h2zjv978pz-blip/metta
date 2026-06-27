@@ -153,6 +153,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link " href="{{ route('backend.tasks', ['task' => 'manage-about-us']) }}">
+                        <i class="fa fa-circle-info"></i> About Us
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link " href="{{ route('backend.buddhist-sites.index') }}">
                         <i class="fa fa-list-alt"></i> Buddhist Sites
                     </a>

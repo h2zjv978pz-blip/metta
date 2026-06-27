@@ -22,8 +22,13 @@ class TaskController extends Controller
                 $data['homeHighlights'] = $repo->getHomeHighlights();
                 $data['clients'] = $repo->getClients();
                 $data['testimonials'] = $repo->getTestimonials();
+                $data['heroSettings'] = $repo->getHeroSettings();
 
                 return view('backend.manage-home', compact('data'));
+
+            case 'save-hero-settings':
+                $repo->saveHeroSettings($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-home', '#hero-settings']);
 
             case 'create-home-slide':
                 return view('backend.home-slides.create');
@@ -157,6 +162,15 @@ class TaskController extends Controller
             case 'save-whatsapp-floating':
                 $repo->saveWhatsAppFloatingEnabled($request);
                 return redirect()->route('backend.tasks', ['task' => 'manage-site-widgets']);
+
+            case 'manage-about-us':
+                $data['aboutUs'] = $repo->getAboutUs();
+
+                return view('backend.manage-about-us', compact('data'));
+
+            case 'save-about-us':
+                $repo->saveAboutUs($request);
+                return redirect()->route('backend.tasks', ['task' => 'manage-about-us']);
         }
     }
 }

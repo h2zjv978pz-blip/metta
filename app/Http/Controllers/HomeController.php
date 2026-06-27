@@ -81,6 +81,8 @@ class HomeController extends Controller
 
     public function getAboutUsPage()
     {
-        return view('frontend.about-us');
+        $data['aboutUs'] = $this->repo->getAboutUs();
+
+        return view('frontend.about-us', compact('data'));
     }
 }

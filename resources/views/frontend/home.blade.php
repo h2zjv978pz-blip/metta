@@ -12,18 +12,25 @@
             <div id="SlideImg" class="carousel slide carousel-fade" data-bs-ride="carousel"
                  data-bs-pause="false">
                 <div class="carousel-inner">
+                    @php
+                        $heroSettings = $gData['heroSettings'] ?? [];
+                        $heroHeading = \App\Helpers\Utils::lingual([$heroSettings['heading'] ?? 'Metta', $heroSettings['heading_bn'] ?? 'Metta']);
+                        $heroReadMoreLabel = \App\Helpers\Utils::lingual([$heroSettings['read_more_label'] ?? 'Read More', $heroSettings['read_more_label_bn'] ?? 'আরও পড়ুন']);
+                        $heroDefaultLink = $heroSettings['read_more_link'] ?? route('buddhist-sites.index');
+                        $heroAlignClass = 'hero-align-' . ($heroSettings['mobile_align'] ?? 'center');
+                    @endphp
                     @foreach($data['homeSlides'] as $homeSlide)
                         <div class="carousel-item {{ $loop->index === 0 ? 'active' : '' }} slide-contain" data-bs-interval="4500" style="background-image: url('{{ $homeSlide->getImageUrl('image') }}')">
                             <div class="carousel-caption d-md-block">
-                                <div class="slide-contain-text">
-                                    <h2 class="animate__animated animate__fadeInDown">Metta</h2>
+                                <div class="slide-contain-text {{ $heroAlignClass }}">
+                                    <h2 class="animate__animated animate__fadeInDown">{{ $heroHeading }}</h2>
                                     <p>{{ $homeSlide->prop('title', 'Following in the Buddha\'s Footsteps') }}</p>
 
                                     <div class="logo wheel">
                                         <img src="{{ asset('_common/img/wheel.png') }}" alt="">
                                     </div>
                                     <div class="animate__animated animate__fadeInUp my-btn-div">
-                                        <a href="{{ $homeSlide->prop('link', route('about-us')) }}" class="my-btn btn-02">Read More</a>
+                                        <a href="{{ $homeSlide->prop('link', $heroDefaultLink) }}" class="my-btn btn-02">{{ $heroReadMoreLabel }}</a>
                                     </div>
 
                                     @if(($gData['quickLinks']['enabled'] ?? false) && !empty($gData['quickLinks']['links']))
