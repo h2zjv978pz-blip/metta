@@ -69,6 +69,7 @@ class StorageItemRepository
             'title'     => $request->title ?? null,
             'title_bn'  => $request->title_bn ?? null,
             'link'      => $request->link ?? null,
+            'note'      => $request->note ?? null,
         ];
 
         $hs->setProps($props);
@@ -90,6 +91,7 @@ class StorageItemRepository
             'title'     => $request->title ?? null,
             'title_bn'  => $request->title_bn ?? null,
             'link'      => $request->link ?? null,
+            'note'      => $request->note ?? null,
         ];
 
         $hs->setProps($props);

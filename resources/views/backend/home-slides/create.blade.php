@@ -14,6 +14,7 @@
                         @include('backend.partials.form.image-file', ['name' => 'slide_image', 'label' => 'Slide Image', 'required' => true])
                         @include('backend.partials.form.lsf.lsf-input', ['name' => 'title', 'lang_options' => ['en', 'bn'], 'labels' => ['Slide Title', 'টাইটেল']])
                         @include('backend.partials.form.input', ['name' => 'link', 'label' => 'Slide Action Link'])
+                        @include('backend.partials.form.input', ['name' => 'note', 'label' => 'Admin Note (not shown on site)'])
                         @include('backend.partials.form.button', ['label' => 'Submit'])
                     </div>
                 </div>

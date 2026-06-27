@@ -14,6 +14,7 @@
                         @include('backend.partials.form.image-file', ['name' => 'slide_image', 'label' => 'Slide Image', 'useOld' => $home_slide->prop('image')])
                         @include('backend.partials.form.lsf.lsf-input', ['name' => 'title', 'lang_options' => ['en', 'bn'], 'labels' => ['Slide Title', 'টাইটেল'], 'useOld' => [$home_slide, 'props', 'title']])
                         @include('backend.partials.form.input', ['name' => 'link', 'label' => 'Slide Action Link', 'useOld' => $home_slide->prop('link')])
+                        @include('backend.partials.form.input', ['name' => 'note', 'label' => 'Admin Note (not shown on site)', 'useOld' => $home_slide->prop('note')])
                         @include('backend.partials.form.button', ['label' => 'Submit'])
                     </div>
                 </div>

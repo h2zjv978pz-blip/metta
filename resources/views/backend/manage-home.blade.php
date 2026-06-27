@@ -55,6 +55,7 @@
                         <th>Slide No.</th>
                         <th>Title</th>
                         <th>Image</th>
+                        <th>Note</th>
                         <th>Link</th>
                         <th>Actions</th>
                     </tr>
@@ -65,6 +66,7 @@
                             <td>#{{ $loop->index + 1 }}</td>
                             <td>{{ $homeSlide->prop('title', '-') }}</td>
                             <td><img src="{{ asset("storage/img/{$homeSlide->prop('image')}") }}" alt="Slide Image" style="max-width: 30%; max-height: 100px;"></td>
+                            <td>{{ $homeSlide->prop('note', '-') }}</td>
                             <td>{{ $homeSlide->prop('link', '-') }}</td>
                             <td>
                                 <a href="{{ route('backend.tasks', ['task' => 'edit-home-slide', 'id' => $homeSlide->id]) }}" class="btn btn-sm btn-outline-primary"><i class="fa fa-edit"></i> Edit</a>
