@@ -53,6 +53,7 @@
                     <thead>
                     <tr>
                         <th>Slide No.</th>
+                        <th>Heading</th>
                         <th>Title</th>
                         <th>Image</th>
                         <th>Note</th>
@@ -64,6 +65,7 @@
                     @foreach($data['homeSlides'] as $homeSlide)
                         <tr>
                             <td>#{{ $loop->index + 1 }}</td>
+                            <td>{{ $homeSlide->prop('heading', '-') }}</td>
                             <td>{{ $homeSlide->prop('title', '-') }}</td>
                             <td><img src="{{ asset("storage/img/{$homeSlide->prop('image')}") }}" alt="Slide Image" style="max-width: 30%; max-height: 100px;"></td>
                             <td>{{ $homeSlide->prop('note', '-') }}</td>

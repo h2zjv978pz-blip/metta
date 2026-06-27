@@ -12,6 +12,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-8 col-12">
                         @include('backend.partials.form.image-file', ['name' => 'slide_image', 'label' => 'Slide Image', 'required' => true])
+                        @include('backend.partials.form.lsf.lsf-input', ['name' => 'heading', 'lang_options' => ['en', 'bn'], 'labels' => ['Heading (e.g. site/place name)', 'হেডিং (যেমন স্থানের নাম)']])
                         @include('backend.partials.form.lsf.lsf-input', ['name' => 'title', 'lang_options' => ['en', 'bn'], 'labels' => ['Slide Title', 'টাইটেল']])
                         @include('backend.partials.form.input', ['name' => 'link', 'label' => 'Slide Action Link'])
                         @include('backend.partials.form.input', ['name' => 'note', 'label' => 'Admin Note (not shown on site)'])

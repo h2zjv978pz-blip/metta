@@ -24,6 +24,9 @@
                             <div class="slide-bg-img" style="background-image: url('{{ $homeSlide->getImageUrl('image') }}')"></div>
                             <div class="carousel-caption d-md-block">
                                 <div class="slide-contain-text {{ $heroAlignClass }}">
+                                    @if($homeSlide->prop('heading'))
+                                        <div class="slide-heading animate__animated animate__fadeInDown">{{ $homeSlide->prop('heading') }}</div>
+                                    @endif
                                     <h2 class="animate__animated animate__fadeInDown">{{ $heroHeading }}</h2>
                                     <p>{{ $homeSlide->prop('title', 'Following in the Buddha\'s Footsteps') }}</p>
 

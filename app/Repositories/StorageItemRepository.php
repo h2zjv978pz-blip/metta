@@ -65,11 +65,13 @@ class StorageItemRepository
         $hs->type = 'home_slides';
 
         $props = [
-            'image'     => $imageName,
-            'title'     => $request->title ?? null,
-            'title_bn'  => $request->title_bn ?? null,
-            'link'      => $request->link ?? null,
-            'note'      => $request->note ?? null,
+            'image'      => $imageName,
+            'heading'    => $request->heading ?? null,
+            'heading_bn' => $request->heading_bn ?? null,
+            'title'      => $request->title ?? null,
+            'title_bn'   => $request->title_bn ?? null,
+            'link'       => $request->link ?? null,
+            'note'       => $request->note ?? null,
         ];
 
         $hs->setProps($props);
@@ -87,11 +89,13 @@ class StorageItemRepository
 
 
         $props = [
-            'image'     => $imageName ?? $hs->prop('image', null),
-            'title'     => $request->title ?? null,
-            'title_bn'  => $request->title_bn ?? null,
-            'link'      => $request->link ?? null,
-            'note'      => $request->note ?? null,
+            'image'      => $imageName ?? $hs->prop('image', null),
+            'heading'    => $request->heading ?? null,
+            'heading_bn' => $request->heading_bn ?? null,
+            'title'      => $request->title ?? null,
+            'title_bn'   => $request->title_bn ?? null,
+            'link'       => $request->link ?? null,
+            'note'       => $request->note ?? null,
         ];
 
         $hs->setProps($props);
