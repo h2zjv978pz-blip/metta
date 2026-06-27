@@ -20,16 +20,19 @@
                         $heroAlignClass = 'hero-align-' . ($heroSettings['mobile_align'] ?? 'center');
                     @endphp
                     @foreach($data['homeSlides'] as $homeSlide)
+                        @php
+                            $slideAlign = $homeSlide->prop('heading_align') ?: ($heroSettings['mobile_align'] ?? 'center');
+                            $slideAlignClass = 'hero-align-' . $slideAlign;
+                        @endphp
                         <div class="carousel-item {{ $loop->index === 0 ? 'active' : '' }} slide-contain" data-bs-interval="7000">
                             <div class="slide-bg-img" style="background-image: url('{{ $homeSlide->getImageUrl('image') }}')"></div>
                             <div class="carousel-caption d-md-block">
-                                <div class="slide-contain-text {{ $heroAlignClass }}">
+                                <div class="slide-contain-text {{ $slideAlignClass }}">
                                     @if($homeSlide->prop('heading'))
                                         @php
                                             $slideHeadingStyle = [];
                                             if ($homeSlide->prop('heading_font_size')) { $slideHeadingStyle[] = 'font-size: ' . $homeSlide->prop('heading_font_size') . 'px'; }
                                             if ($homeSlide->prop('heading_font_family')) { $slideHeadingStyle[] = "font-family: '" . $homeSlide->prop('heading_font_family') . "', sans-serif"; }
-                                            if ($homeSlide->prop('heading_align')) { $slideHeadingStyle[] = 'text-align: ' . $homeSlide->prop('heading_align'); }
                                         @endphp
                                         <h2 class="animate__animated animate__fadeInDown" style="{{ implode('; ', $slideHeadingStyle) }}">{{ $homeSlide->prop('heading') }}</h2>
                                     @else
