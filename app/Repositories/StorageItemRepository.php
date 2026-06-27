@@ -93,13 +93,16 @@ class StorageItemRepository
         $hs->type = 'home_slides';
 
         $props = [
-            'image'      => $imageName,
-            'heading'    => $request->heading ?? null,
-            'heading_bn' => $request->heading_bn ?? null,
-            'title'      => $request->title ?? null,
-            'title_bn'   => $request->title_bn ?? null,
-            'link'       => $request->link ?? null,
-            'note'       => $request->note ?? null,
+            'image'              => $imageName,
+            'heading'            => $request->heading ?? null,
+            'heading_bn'         => $request->heading_bn ?? null,
+            'heading_font_size'  => !empty($request->heading_font_size) ? (int) $request->heading_font_size : null,
+            'heading_font_family'=> $request->heading_font_family ?: null,
+            'heading_align'      => in_array($request->heading_align, ['left', 'center', 'right']) ? $request->heading_align : null,
+            'title'              => $request->title ?? null,
+            'title_bn'           => $request->title_bn ?? null,
+            'link'               => $request->link ?? null,
+            'note'               => $request->note ?? null,
         ];
 
         $hs->setProps($props);
@@ -117,13 +120,16 @@ class StorageItemRepository
 
 
         $props = [
-            'image'      => $imageName ?? $hs->prop('image', null),
-            'heading'    => $request->heading ?? null,
-            'heading_bn' => $request->heading_bn ?? null,
-            'title'      => $request->title ?? null,
-            'title_bn'   => $request->title_bn ?? null,
-            'link'       => $request->link ?? null,
-            'note'       => $request->note ?? null,
+            'image'              => $imageName ?? $hs->prop('image', null),
+            'heading'            => $request->heading ?? null,
+            'heading_bn'         => $request->heading_bn ?? null,
+            'heading_font_size'  => !empty($request->heading_font_size) ? (int) $request->heading_font_size : null,
+            'heading_font_family'=> $request->heading_font_family ?: null,
+            'heading_align'      => in_array($request->heading_align, ['left', 'center', 'right']) ? $request->heading_align : null,
+            'title'              => $request->title ?? null,
+            'title_bn'           => $request->title_bn ?? null,
+            'link'               => $request->link ?? null,
+            'note'               => $request->note ?? null,
         ];
 
         $hs->setProps($props);

@@ -25,9 +25,16 @@
                             <div class="carousel-caption d-md-block">
                                 <div class="slide-contain-text {{ $heroAlignClass }}">
                                     @if($homeSlide->prop('heading'))
-                                        <div class="slide-heading animate__animated animate__fadeInDown">{{ $homeSlide->prop('heading') }}</div>
+                                        @php
+                                            $slideHeadingStyle = [];
+                                            if ($homeSlide->prop('heading_font_size')) { $slideHeadingStyle[] = 'font-size: ' . $homeSlide->prop('heading_font_size') . 'px'; }
+                                            if ($homeSlide->prop('heading_font_family')) { $slideHeadingStyle[] = "font-family: '" . $homeSlide->prop('heading_font_family') . "', sans-serif"; }
+                                            if ($homeSlide->prop('heading_align')) { $slideHeadingStyle[] = 'text-align: ' . $homeSlide->prop('heading_align'); }
+                                        @endphp
+                                        <h2 class="animate__animated animate__fadeInDown" style="{{ implode('; ', $slideHeadingStyle) }}">{{ $homeSlide->prop('heading') }}</h2>
+                                    @else
+                                        <h2 class="animate__animated animate__fadeInDown">{{ $heroHeading }}</h2>
                                     @endif
-                                    <h2 class="animate__animated animate__fadeInDown">{{ $heroHeading }}</h2>
                                     <p>{{ $homeSlide->prop('title', 'Following in the Buddha\'s Footsteps') }}</p>
 
                                     <div class="logo wheel">
