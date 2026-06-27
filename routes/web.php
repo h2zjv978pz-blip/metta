@@ -105,7 +105,7 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function(){
     Route::get('logout', [AuthController::class, 'getLogout'])->name('logout');
 });
 
-Route::group(['prefix' => 'manage', 'as' => 'backend.', 'middleware' => 'auth.admin'], function () {
+Route::group(['prefix' => 'manage', 'as' => 'backend.', 'middleware' => ['auth.admin', 'no-cache-admin']], function () {
     Route::get('/', function () {
         return redirect()->route('backend.tasks', ['task' => 'manage-home']);
     })->name('home');
